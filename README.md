@@ -21,20 +21,20 @@ The horn-honking, dhaba-stop radio player that lives inside every decorated Indi
 
 ## ✨ Features
 
-- 🎵 50-song curated playlist player
+- 🎵 Curated playlist player with cover art per track
 - ▶️ Play / Pause, ⏮️ Previous, ⏭️ Next controls
 - ⏱️ Draggable and keyboard-accessible seek bar
-- 🖼️ Individual cover art for every song
-- 📯 3 unique horn buttons with dedicated sounds
+- 📯 3 horn buttons, each with its own sound
 - ⏸️ Music auto-pauses when a horn plays, then resumes automatically
 - 🔊 Horn audio never mixes with the song
 - 🕐 Live clock
-- 💬 Rotating truck-art style messages
+- 💬 Rotating truck-art style quote lines
 - 📊 Animated music equalizer
 - 🚛 Animated highway + lorry background with dusk visual effects
+- 🔢 Live visit counter (tracks total page loads)
 - 📱 Fully responsive design
 - ♿ Keyboard accessible, with `prefers-reduced-motion` support
-- 🔗 Spotify and GitHub links
+- 🔗 GitHub link
 
 ---
 
@@ -49,6 +49,7 @@ The horn-honking, dhaba-stop radio player that lives inside every decorated Indi
 | Web Audio API | Synthesized horn fallback |
 | SVG | Custom highway graphics |
 | Google Fonts | Typography |
+| CountAPI | Page visit counter |
 | Vercel | Deployment |
 
 ---
@@ -61,7 +62,7 @@ Horns and music are designed to never overlap:
 🎵 Song Playing → 📯 Horn Clicked → ⏸️ Song Pauses → 🔊 Horn Plays → ▶️ Song Resumes
 ```
 
-Each horn button uses its own audio file. If the file is unavailable, a synthesized fallback tone (via the Web Audio API) plays instead.
+Each horn button uses its own audio file. If the file is unavailable, a synthesized fallback tone (via the Web Audio API) plays instead, using the frequencies configured per horn.
 
 ---
 
@@ -83,16 +84,20 @@ lorry-fm/
 │   └── covers/
 │       ├── song1.jpg
 │       ├── song2.jpg
-│       └── ... (up to song50.jpg)
+│       └── song3.jpg
 │
 ├── music/
-│   ├── song1.mp3 ... song50.mp3
+│   ├── song1.mp3
+│   ├── song2.mp3
+│   ├── song3.mp3
 │   ├── horn1.mp3
 │   ├── horn2.mp3
 │   └── horn3.mp3
 │
 └── README.md
 ```
+
+> Drop your own files into `assets/covers/` and `music/` using the exact names above — the site already points at them, so no code changes are needed. Anything missing falls back gracefully (placeholder cover art, or a synthesized horn tone).
 
 ---
 
@@ -120,11 +125,13 @@ python3 -m http.server 8000
 
 Then visit **http://localhost:8000**
 
+> Deploy the whole folder, not just `index.html` — the site needs `style.css`, `script.js`, and the `assets/` and `music/` folders alongside it.
+
 ---
 
 ## 🎵 Adding Songs
 
-The playlist lives in `script.js`:
+The playlist lives near the top of `script.js`:
 
 ```js
 var playlist = [
@@ -147,8 +154,8 @@ To add a new song:
 {
   title: "Your Song",
   artist: "Artist Name",
-  src: "music/song51.mp3",
-  cover: "assets/covers/song51.jpg"
+  src: "music/song4.mp3",
+  cover: "assets/covers/song4.jpg"
 }
 ```
 
@@ -172,7 +179,15 @@ var hornSounds = [
 
 ## 💬 Customizing Truck-Art Messages
 
-The rotating messages under the LORRY.FM heading come from the `rotatingLines` array in `script.js`. Add your own highway-inspired lines to make it yours.
+The rotating messages under the LORRY.FM heading come from the `rotatingLines` array in `script.js`. It's a plain array of strings, one per line — add your own highway-inspired lines to make it yours. Only include text you've written yourself or have clear rights to use.
+
+---
+
+## 🔢 Visit Counter
+
+`script.js` calls [CountAPI](https://countapi.xyz) to keep a running total of page loads, displayed live on the site. Before deploying your own copy, update the `namespace` value near the bottom of `script.js` to something unique to you (e.g. your own domain) so your count doesn't collide with anyone else's project using the same default value.
+
+> Note: this counts total page loads, not concurrent live viewers. A true "X people online right now" counter would need a backend with presence tracking (e.g. Firebase Realtime Database).
 
 ---
 
@@ -207,7 +222,7 @@ Deployed on **Vercel**, connected directly to this GitHub repository. Every push
 - [ ] Favorite songs
 - [ ] Custom playlists
 - [ ] More horn sounds
-- [ ] Real-time listener counter
+- [ ] Live "listeners online" counter (presence-based, not just page loads)
 - [ ] Progressive Web App support
 - [ ] Improved mobile experience
 - [ ] More interactive truck animations
