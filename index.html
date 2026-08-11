@@ -1,175 +1,826 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>lorry.fm — Highway anthems from the back of a Tata 407</title>
-<meta name="description" content="lorry.fm — the horn-honking, dhaba-stop anthems that blast out of every decorated Indian truck cabin.">
+  <meta charset="UTF-8">
 
-<!-- Favicon -->
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="favicon-192.png">
-<meta name="theme-color" content="#171310">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="lorry.fm">
-<meta property="og:title" content="LORRY.FM">
-<meta property="og:description" content="The horn-honking, dhaba-stop anthems that blast out of every decorated truck cabin on the Grand Trunk Road.">
-<meta property="og:image" content="og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="LORRY.FM — a decorated Indian lorry on a dusk highway">
+  <title>
+    lorry.fm — Highway anthems from the back of a Tata 407
+  </title>
 
-<!-- Twitter / X -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="LORRY.FM">
-<meta name="twitter:description" content="The horn-honking, dhaba-stop anthems that blast out of every decorated truck cabin on the Grand Trunk Road.">
-<meta name="twitter:image" content="og-image.png">
+  <meta
+    name="description"
+    content="lorry.fm — the horn-honking, dhaba-stop anthems that blast out of every decorated Indian truck cabin."
+  >
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    href="favicon.svg"
+    type="image/svg+xml"
+  >
+
+  <link
+    rel="icon"
+    href="favicon-32.png"
+    sizes="32x32"
+    type="image/png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="favicon-192.png"
+  >
+
+  <meta
+    name="theme-color"
+    content="#09080b"
+  >
+
+
+  <!-- =====================================================
+       OPEN GRAPH
+       ===================================================== -->
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:site_name"
+    content="lorry.fm"
+  >
+
+  <meta
+    property="og:title"
+    content="LORRY.FM"
+  >
+
+  <meta
+    property="og:description"
+    content="Highway anthems from the back of a Tata 407."
+  >
+
+  <meta
+    property="og:image"
+    content="og-image.png"
+  >
+
+  <meta
+    property="og:image:width"
+    content="1200"
+  >
+
+  <meta
+    property="og:image:height"
+    content="630"
+  >
+
+  <meta
+    property="og:image:alt"
+    content="LORRY.FM — highway truck radio"
+  >
+
+
+  <!-- =====================================================
+       FONTS
+       ===================================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- Main CSS -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
+
 <body>
 
-  <div class="scene" aria-hidden="true">
-    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1f1a15"/>
-          <stop offset="55%" stop-color="#2a1c14"/>
-          <stop offset="100%" stop-color="#171310"/>
-        </linearGradient>
-        <radialGradient id="sun" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#ffc22e" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#ffc22e" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
 
-      <rect width="1440" height="900" fill="url(#sky)"/>
+  <!-- =====================================================
+       BACKGROUND SCENE
+       ===================================================== -->
 
-      <!-- sun glow -->
-      <circle class="sun-glow" cx="1160" cy="230" r="260" fill="url(#sun)" opacity="0.35"/>
-      <circle class="sun-glow" cx="1160" cy="230" r="70" fill="#ffc22e" opacity="0.5"/>
+  <div
+    class="background"
+    aria-hidden="true"
+  >
 
-      <!-- distant hills -->
-      <path d="M0 560 Q 220 500 440 555 T 880 545 T 1440 560 V900 H0 Z" fill="#12776f" opacity="0.10"/>
-      <path d="M0 610 Q 260 560 520 605 T 1000 595 T 1440 615 V900 H0 Z" fill="#d2491d" opacity="0.10"/>
+    <!-- Sky -->
 
-      <!-- distant lights along the horizon -->
-      <circle class="distant-light l1" cx="640" cy="612" r="2.4" fill="#ffc22e" opacity="0.5"/>
-      <circle class="distant-light l2" cx="760" cy="618" r="2" fill="#f3e7cf" opacity="0.4"/>
-      <circle class="distant-light l3" cx="900" cy="608" r="2.2" fill="#ffc22e" opacity="0.45"/>
+    <div class="sky"></div>
 
-      <!-- road -->
-      <path d="M0 900 L 560 640 H 880 L 1440 900 Z" fill="#0f0c09" opacity="0.55"/>
 
-      <!-- moving lane dashes (looping) -->
-      <g>
-        <rect class="lane-dash d1" x="716" y="660" width="8" height="24" rx="3" fill="#ffc22e"/>
-        <rect class="lane-dash d2" x="716" y="660" width="8" height="24" rx="3" fill="#ffc22e"/>
-        <rect class="lane-dash d3" x="716" y="660" width="8" height="24" rx="3" fill="#ffc22e"/>
-      </g>
-      <path d="M660 700 L700 680 M760 730 L800 710 M860 760 L900 740 M960 790 L1000 770 M1060 820 L1100 800"
-            stroke="#ffc22e" stroke-width="8" stroke-linecap="round" opacity="0.22"/>
+    <!-- Sun -->
 
-      <!-- power lines -->
-      <path d="M-50 400 Q 400 300 900 380 T 1500 340" stroke="#c9c2b4" stroke-width="1.5" fill="none" opacity="0.15"/>
+    <div class="sun"></div>
 
-      <!-- lorry silhouette -->
-      <g class="truck-silhouette" opacity="0.4" transform="translate(120,690)">
-        <rect x="0" y="-70" width="150" height="70" rx="4" fill="#d2491d"/>
-        <rect x="150" y="-95" width="95" height="95" rx="6" fill="#12776f"/>
-        <rect x="160" y="-84" width="30" height="26" rx="2" fill="#171310"/>
-        <rect x="0" y="-84" width="150" height="10" fill="#ffc22e"/>
-        <circle cx="35" cy="4" r="20" fill="#171310"/>
-        <circle cx="35" cy="4" r="8" fill="#c9c2b4"/>
-        <circle cx="205" cy="4" r="20" fill="#171310"/>
-        <circle cx="205" cy="4" r="8" fill="#c9c2b4"/>
-        <rect x="-18" y="-40" width="10" height="4" fill="#ffc22e"/>
-      </g>
 
-      <!-- dust trail -->
-      <ellipse class="dust-mote m1" cx="30" cy="720" rx="60" ry="14" fill="#c9c2b4" opacity="0.08"/>
-      <ellipse class="dust-mote m2" cx="-30" cy="730" rx="80" ry="16" fill="#c9c2b4" opacity="0.06"/>
-      <ellipse class="dust-mote m3" cx="10" cy="710" rx="40" ry="10" fill="#c9c2b4" opacity="0.07"/>
-    </svg>
-  </div>
+    <!-- Clouds -->
 
-  <div class="toplane">
-    <span><span id="liveClock">--:--</span> <span class="dot">●</span> lorry.fm <span class="dot">●</span> live from the highway</span>
-    <span>dhaba stop no. 07</span>
-  </div>
+    <div class="cloud cloud-one"></div>
 
-  <div class="hero">
-    <p class="eyebrow">now blaring from every dashboard</p>
-    <h1>LORRY.FM</h1>
-    <p class="sub" id="rotatingLine">हर मोड़ पर नयी कहानी, हर सफर में नयी जवानी।</p>
-  </div>
+    <div class="cloud cloud-two"></div>
 
-  <div class="rail"></div>
 
-  <div class="stage">
-    <div class="panel" id="panel">
-      <div class="horn-row" role="group" aria-label="Play a horn sound">
-        <button type="button" class="horn-btn h1" id="hornBtn1" aria-label="Horn sound 1">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-.77-3.29-2-4.24v8.47c1.23-.94 2-2.46 2-4.23z"/></svg>
-        </button>
-        <button type="button" class="horn-btn h2" id="hornBtn2" aria-label="Horn sound 2">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-.77-3.29-2-4.24v8.47c1.23-.94 2-2.46 2-4.23z"/></svg>
-        </button>
-        <button type="button" class="horn-btn h3" id="hornBtn3" aria-label="Horn sound 3">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-.77-3.29-2-4.24v8.47c1.23-.94 2-2.46 2-4.23z"/></svg>
-        </button>
-      </div>
-      <div class="cover">
-        <img id="coverImg" alt="Album art for the currently playing song" />
-      </div>
-      <div class="meta">
-        <p class="track" id="trackTitle">Highway Ki Rani</p>
-        <p class="artist" id="trackArtist">Lorry Wale Bhaiya & The Dashboard Deities</p>
+    <!-- =================================================
+         FLYING BIRDS
+         ================================================= -->
 
-        <div class="seekbar" id="seekbar" role="slider" tabindex="0"
-             aria-label="Seek within song" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-          <div class="seekfill" id="seekfill"></div>
-          <div class="seekthumb" id="seekthumb"></div>
-        </div>
-        <div class="seektimes">
-          <span id="curTime">0:00</span>
-          <span id="durTime">0:00</span>
-        </div>
-        <div class="controls">
-          <button type="button" class="btn small" id="prevbtn" aria-label="Previous track">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zM20 6L10 12l10 6z"/></svg>
-          </button>
-          <button type="button" class="playbtn" id="playbtn" aria-label="Play" aria-pressed="false">
-            <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-            <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-          </button>
-          <button type="button" class="btn small" id="nextbtn" aria-label="Next track">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h2v12h-2zM4 6l10 6-10 6z"/></svg>
-          </button>
-          <div class="eq" id="eq" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-        </div>
-      </div>
+    <div
+      class="birds birds-one"
+      aria-hidden="true"
+    >
+
+      <span></span>
+      <span></span>
+      <span></span>
+
     </div>
+
+
+    <div
+      class="birds birds-two"
+      aria-hidden="true"
+    >
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+
+    <div
+      class="birds birds-three"
+      aria-hidden="true"
+    >
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+
+    <!-- =================================================
+         MOUNTAINS
+         ================================================= -->
+
+    <div class="mountains mountain-one"></div>
+
+    <div class="mountains mountain-two"></div>
+
+
+    <!-- =================================================
+         ROAD
+         ================================================= -->
+
+    <div class="road"></div>
+
+
+    <!-- Road lights -->
+
+    <div class="road-light light-one"></div>
+
+    <div class="road-light light-two"></div>
+
+    <div class="road-light light-three"></div>
+
+
+    <!-- =================================================
+         MAIN MOVING TRUCK
+         LEFT → RIGHT
+         ================================================= -->
+
+    <div class="moving-truck">
+
+
+      <!-- Cargo/body -->
+
+      <div class="moving-truck-body">
+
+        <div class="truck-decoration-top"></div>
+
+
+        <div class="moving-truck-art">
+          HORN<br>
+          OK<br>
+          PLEASE
+        </div>
+
+
+        <div class="truck-art-stripe"></div>
+
+
+        <div class="truck-cargo-pattern">
+          ◆ ◆ ◆ ◆ ◆
+        </div>
+
+      </div>
+
+
+      <!-- Cabin -->
+
+      <div class="moving-truck-cabin">
+
+        <div class="moving-truck-window"></div>
+
+        <div class="moving-truck-front-window"></div>
+
+        <div class="moving-truck-grille"></div>
+
+        <div class="moving-truck-light"></div>
+
+        <div class="truck-bumper"></div>
+
+      </div>
+
+
+      <!-- Wheels -->
+
+      <div
+        class="moving-wheel moving-wheel-one"
+      ></div>
+
+
+      <div
+        class="moving-wheel moving-wheel-two"
+      ></div>
+
+
+      <!-- Headlight -->
+
+      <div class="headlight-glow"></div>
+
+    </div>
+
+
+    <!-- =================================================
+         SECOND MOVING TRUCK
+         RIGHT → LEFT
+         SAME DESIGN
+         ================================================= -->
+
+    <div class="moving-truck moving-truck-two">
+
+
+      <!-- Cargo/body -->
+
+      <div class="moving-truck-body">
+
+        <div class="truck-decoration-top"></div>
+
+
+        <div class="moving-truck-art">
+          HORN<br>
+          OK<br>
+          PLEASE
+        </div>
+
+
+        <div class="truck-art-stripe"></div>
+
+
+        <div class="truck-cargo-pattern">
+          ◆ ◆ ◆ ◆ ◆
+        </div>
+
+      </div>
+
+
+      <!-- Cabin -->
+
+      <div class="moving-truck-cabin">
+
+        <div class="moving-truck-window"></div>
+
+        <div class="moving-truck-front-window"></div>
+
+        <div class="moving-truck-grille"></div>
+
+        <div class="moving-truck-light"></div>
+
+        <div class="truck-bumper"></div>
+
+      </div>
+
+
+      <!-- Wheels -->
+
+      <div
+        class="moving-wheel moving-wheel-one"
+      ></div>
+
+
+      <div
+        class="moving-wheel moving-wheel-two"
+      ></div>
+
+
+      <div class="headlight-glow"></div>
+
+    </div>
+
+
+    <!-- =================================================
+         DUST
+         ================================================= -->
+
+    <div class="dust dust-one"></div>
+
+    <div class="dust dust-two"></div>
+
+    <div class="dust dust-three"></div>
+
+
+    <!-- =================================================
+         HIGHWAY DHABA
+         ================================================= -->
+
+    <div class="dhaba">
+
+      <span>
+        HIGHWAY
+      </span>
+
+      <strong>
+        DHABA
+      </strong>
+
+    </div>
+
+
+    <!-- Power line -->
+
+    <div class="power-line"></div>
+
   </div>
 
-  <div class="links">
-    <a href="https://github.com/cgupta21/lorry-fm" target="_blank" rel="noopener">Github</a>
-   
+
+  <!-- =====================================================
+       TOP BAR
+       ===================================================== -->
+
+  <header class="topbar">
+
+
+    <!-- Left side -->
+
+    <div class="top-left">
+
+
+      <span class="clock-icon">
+        ◷
+      </span>
+
+
+      <span id="liveClock">
+        --:--
+      </span>
+
+
+      <span class="top-dot">
+        ●
+      </span>
+
+
+      <span>
+        LORRY.FM
+      </span>
+
+
+      <span class="top-dot">
+        ●
+      </span>
+
+
+      <span class="highway-text">
+        LIVE FROM THE HIGHWAY
+      </span>
+
+    </div>
+
+
+    <!-- GitHub -->
+
+    <div class="top-right">
+
+      <a
+        href="https://github.com/cgupta21/lorry-fm"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link github-link"
+      >
+
+        <span class="github-icon">
+          ◉
+        </span>
+
+        GITHUB
+
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+
+  <section class="hero">
+
+
+    <p class="eyebrow">
+      NOW BLARING FROM EVERY DASHBOARD
+    </p>
+
+
+    <h1>
+      LORRY.FM
+    </h1>
+
+  </section>
+
+
+  <!-- =====================================================
+       HAZARD STRIPE
+       ===================================================== -->
+
+  <div class="hazard-rail">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
   </div>
 
-  <audio id="track" preload="none"></audio>
 
-  <footer>
-    lorry.fm <span class="flag">●</span> built for the open road, not the highway toll
-  </footer>
+  <!-- =====================================================
+       ROTATING HINDI QUOTE
+       ===================================================== -->
 
-<script src="script.js"></script>
+  <div class="player-quote">
+
+    <p id="rotatingLine">
+      हॉर्न बजा के रस्ता दे भाई, आगे निकलनी है हमारी गाड़ी।
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       FLOATING HORN CONTROLS
+       ===================================================== -->
+
+  <div
+    class="horn-row"
+    role="group"
+    aria-label="Play a horn sound"
+  >
+
+
+    <!-- Horn 1 -->
+
+    <button
+      type="button"
+      class="horn-btn h1"
+      id="hornBtn1"
+      aria-label="Horn sound 1"
+    >
+
+      <span class="horn-symbol">
+        📯
+      </span>
+
+      <small>
+        HORN 1
+      </small>
+
+    </button>
+
+
+    <!-- Horn 2 -->
+
+    <button
+      type="button"
+      class="horn-btn h2"
+      id="hornBtn2"
+      aria-label="Horn sound 2"
+    >
+
+      <span class="horn-symbol">
+        📯
+      </span>
+
+      <small>
+        HORN 2
+      </small>
+
+    </button>
+
+
+    <!-- Horn 3 -->
+
+    <button
+      type="button"
+      class="horn-btn h3"
+      id="hornBtn3"
+      aria-label="Horn sound 3"
+    >
+
+      <span class="horn-symbol">
+        📯
+      </span>
+
+      <small>
+        HORN 3
+      </small>
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       FLOATING MUSIC PLAYER
+       ===================================================== -->
+
+  <main class="player-area">
+
+
+    <div
+      class="dashboard panel"
+      id="panel"
+    >
+
+
+      <!-- =================================================
+           PLAYER CONTENT
+           ================================================= -->
+
+      <div class="player-content">
+
+
+        <!-- Cover -->
+
+        <div class="cover-frame">
+
+
+          <div class="cover">
+
+            <img
+              id="coverImg"
+              alt="Album art for the currently playing song"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SONG INFORMATION
+             ================================================= -->
+
+        <div class="meta">
+
+
+          <!-- Track -->
+
+          <p
+            class="track"
+            id="trackTitle"
+          >
+            Chand Se Parda Kijiye
+          </p>
+
+
+          <!-- Artist -->
+
+          <p
+            class="artist"
+            id="trackArtist"
+          >
+            Kumar Sanu
+          </p>
+
+
+          <!-- =================================================
+               SEEK BAR
+               ================================================= -->
+
+          <div
+            class="seekbar"
+            id="seekbar"
+            role="slider"
+            tabindex="0"
+            aria-label="Seek within song"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+
+
+            <div
+              class="seekfill"
+              id="seekfill"
+            ></div>
+
+
+            <div
+              class="seekthumb"
+              id="seekthumb"
+            ></div>
+
+          </div>
+
+
+          <!-- Time -->
+
+          <div class="seektimes">
+
+            <span id="curTime">
+              0:00
+            </span>
+
+            <span id="durTime">
+              0:00
+            </span>
+
+          </div>
+
+
+          <!-- =================================================
+               PLAYER CONTROLS
+               ================================================= -->
+
+          <div class="controls">
+
+
+            <!-- Previous -->
+
+            <button
+              type="button"
+              class="btn small"
+              id="prevbtn"
+              aria-label="Previous track"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M6 6h2v12H6zM20 6L10 12l10 6z"
+                />
+
+              </svg>
+
+            </button>
+
+
+            <!-- Play / Pause -->
+
+            <button
+              type="button"
+              class="playbtn"
+              id="playbtn"
+              aria-label="Play"
+              aria-pressed="false"
+            >
+
+
+              <!-- Play icon -->
+
+              <svg
+                class="icon-play"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M8 5v14l11-7z"
+                />
+
+              </svg>
+
+
+              <!-- Pause icon -->
+
+              <svg
+                class="icon-pause"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M6 5h4v14H6zM14 5h4v14h-4z"
+                />
+
+              </svg>
+
+            </button>
+
+
+            <!-- Next -->
+
+            <button
+              type="button"
+              class="btn small"
+              id="nextbtn"
+              aria-label="Next track"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M16 6h2v12h-2zM4 6l10 6-10 6z"
+                />
+
+              </svg>
+
+            </button>
+
+
+            <!-- Equalizer -->
+
+            <div
+              class="eq"
+              id="eq"
+              aria-hidden="true"
+            >
+
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- =====================================================
+       AUDIO ELEMENT
+       ===================================================== -->
+
+  <audio
+    id="track"
+    preload="none"
+  ></audio>
+
+
+  <!-- =====================================================
+       EXISTING JAVASCRIPT
+       ===================================================== -->
+
+  <script src="script.js"></script>
+
+
 </body>
-</html>
+
+</html> 
