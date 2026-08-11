@@ -1862,62 +1862,7 @@
   );
 
 
-  // ===================================================
-  // REAL VISIT COUNTER
-  // ===================================================
-
-  (function(){
-
-    var namespace =
-      'lorryfm-highway-radio-demo';
-
-    var key =
-      'visits';
-
-
-    var el =
-      document.getElementById(
-        'visitCount'
-      );
-
-
-    if(!el){
-      return;
-    }
-
-
-    fetch(
-      'https://api.countapi.xyz/hit/' +
-      namespace +
-      '/' +
-      key
-    )
-    .then(
-      function(r){
-
-        return r.json();
-
-      }
-    )
-    .then(
-      function(data){
-
-        el.textContent =
-          data.value.toLocaleString();
-
-      }
-    )
-    .catch(
-      function(){
-
-        el.textContent =
-          '—';
-
-      }
-    );
-
-  })();
-
+ 
 
   // ===================================================
   // INITIAL LOAD
