@@ -56,7 +56,6 @@ body {
 
 .background {
   position: fixed;
-
   inset: 0;
 
   overflow: hidden;
@@ -68,7 +67,6 @@ body {
 
 .sky {
   position: absolute;
-
   inset: 0;
 
   background:
@@ -221,49 +219,38 @@ body {
 
 .birds-one {
   top: 13%;
-
   left: -120px;
 
   transform: scale(0.9);
 
-  animation-duration:
-    24s;
+  animation-duration: 24s;
 }
 
 .birds-two {
   top: 20%;
-
   left: -180px;
 
   transform: scale(0.65);
 
   opacity: 0.5;
 
-  animation-duration:
-    30s;
-
-  animation-delay:
-    -8s;
+  animation-duration: 30s;
+  animation-delay: -8s;
 }
 
 .birds-three {
   top: 9%;
-
   left: -220px;
 
   transform: scale(0.5);
 
   opacity: 0.38;
 
-  animation-duration:
-    34s;
-
-  animation-delay:
-    -15s;
+  animation-duration: 34s;
+  animation-delay: -15s;
 }
 
 @keyframes birdFlight {
-
   0% {
     transform:
       translateX(0)
@@ -302,6 +289,267 @@ body {
 
 
 /* =========================================================
+   EXTRA BIRDS
+   ========================================================= */
+
+.birds-four {
+  top: 17%;
+  left: -240px;
+
+  transform: scale(0.72);
+
+  opacity: 0.58;
+
+  animation:
+    birdFlightFour
+    21s
+    linear
+    infinite;
+
+  animation-delay: -4s;
+}
+
+.birds-five {
+  top: 26%;
+  left: -320px;
+
+  transform: scale(0.48);
+
+  opacity: 0.42;
+
+  animation:
+    birdFlightFive
+    28s
+    linear
+    infinite;
+
+  animation-delay: -12s;
+}
+
+.birds-six {
+  top: 11%;
+  left: -400px;
+
+  transform: scale(0.58);
+
+  opacity: 0.50;
+
+  animation:
+    birdFlightSix
+    32s
+    linear
+    infinite;
+
+  animation-delay: -18s;
+}
+
+.birds-seven {
+  top: 31%;
+  left: -500px;
+
+  transform: scale(0.42);
+
+  opacity: 0.32;
+
+  animation:
+    birdFlightSeven
+    36s
+    linear
+    infinite;
+
+  animation-delay: -9s;
+}
+
+.birds-eight {
+  top: 7%;
+  left: -600px;
+
+  transform: scale(0.36);
+
+  opacity: 0.28;
+
+  animation:
+    birdFlightEight
+    40s
+    linear
+    infinite;
+
+  animation-delay: -25s;
+}
+
+@keyframes birdFlightFour {
+  0% {
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(0.72);
+  }
+
+  25% {
+    transform:
+      translateX(30vw)
+      translateY(-9px)
+      scale(0.78);
+  }
+
+  50% {
+    transform:
+      translateX(65vw)
+      translateY(5px)
+      scale(0.82);
+  }
+
+  75% {
+    transform:
+      translateX(105vw)
+      translateY(-7px)
+      scale(0.76);
+  }
+
+  100% {
+    transform:
+      translateX(155vw)
+      translateY(0)
+      scale(0.72);
+  }
+}
+
+@keyframes birdFlightFive {
+  0% {
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(0.48);
+  }
+
+  30% {
+    transform:
+      translateX(38vw)
+      translateY(10px)
+      scale(0.52);
+  }
+
+  60% {
+    transform:
+      translateX(82vw)
+      translateY(-8px)
+      scale(0.56);
+  }
+
+  100% {
+    transform:
+      translateX(160vw)
+      translateY(2px)
+      scale(0.48);
+  }
+}
+
+@keyframes birdFlightSix {
+  0% {
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(0.58);
+  }
+
+  25% {
+    transform:
+      translateX(35vw)
+      translateY(-12px)
+      scale(0.62);
+  }
+
+  50% {
+    transform:
+      translateX(75vw)
+      translateY(6px)
+      scale(0.66);
+  }
+
+  75% {
+    transform:
+      translateX(115vw)
+      translateY(-10px)
+      scale(0.60);
+  }
+
+  100% {
+    transform:
+      translateX(160vw)
+      translateY(0)
+      scale(0.58);
+  }
+}
+
+@keyframes birdFlightSeven {
+  0% {
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(0.42);
+  }
+
+  35% {
+    transform:
+      translateX(40vw)
+      translateY(-6px)
+      scale(0.46);
+  }
+
+  70% {
+    transform:
+      translateX(95vw)
+      translateY(8px)
+      scale(0.50);
+  }
+
+  100% {
+    transform:
+      translateX(165vw)
+      translateY(0)
+      scale(0.42);
+  }
+}
+
+@keyframes birdFlightEight {
+  0% {
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(0.36);
+  }
+
+  25% {
+    transform:
+      translateX(40vw)
+      translateY(6px)
+      scale(0.40);
+  }
+
+  50% {
+    transform:
+      translateX(78vw)
+      translateY(-7px)
+      scale(0.44);
+  }
+
+  75% {
+    transform:
+      translateX(120vw)
+      translateY(5px)
+      scale(0.40);
+  }
+
+  100% {
+    transform:
+      translateX(165vw)
+      translateY(0)
+      scale(0.36);
+  }
+}
+
+
+/* =========================================================
    MOUNTAINS
    ========================================================= */
 
@@ -313,7 +561,8 @@ body {
   width: 130%;
   height: 260px;
 
-  background: #17151b;
+  background:
+    #17151b;
 
   clip-path:
     polygon(
@@ -338,8 +587,7 @@ body {
 .mountain-one {
   left: -10%;
 
-  opacity:
-    0.9;
+  opacity: 0.9;
 }
 
 .mountain-two {
@@ -347,11 +595,9 @@ body {
 
   bottom: 33%;
 
-  opacity:
-    0.42;
+  opacity: 0.42;
 
-  transform:
-    scale(1.2);
+  transform: scale(1.2);
 }
 
 
@@ -436,7 +682,7 @@ body {
 
 
 /* =========================================================
-   MAIN MOVING TRUCK
+   MAIN TRUCK
    LEFT → RIGHT
    ========================================================= */
 
@@ -444,7 +690,6 @@ body {
   position: absolute;
 
   left: -520px;
-
   bottom: 25%;
 
   width: 450px;
@@ -610,8 +855,7 @@ body {
   border:
     4px solid #d89a32;
 
-  z-index:
-    3;
+  z-index: 3;
 }
 
 .moving-truck-window {
@@ -689,8 +933,7 @@ body {
   width: 15px;
   height: 15px;
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 
   background:
     #fff2a0;
@@ -728,8 +971,7 @@ body {
   width: 58px;
   height: 58px;
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 
   background:
     radial-gradient(
@@ -744,35 +986,25 @@ body {
   border:
     4px solid #050505;
 
-  z-index:
-    5;
+  z-index: 5;
 }
 
 .moving-wheel-one {
-  left:
-    55px;
+  left: 55px;
 }
 
 .moving-wheel-two {
-  right:
-    62px;
+  right: 62px;
 }
 
 .headlight-glow {
-  position:
-    absolute;
+  position: absolute;
 
-  right:
-    -25px;
+  right: -25px;
+  top: 110px;
 
-  top:
-    110px;
-
-  width:
-    150px;
-
-  height:
-    80px;
+  width: 150px;
+  height: 80px;
 
   background:
     radial-gradient(
@@ -791,7 +1023,6 @@ body {
    ========================================================= */
 
 @keyframes driveAcrossHighway {
-
   0% {
     transform:
       translateX(0)
@@ -841,33 +1072,22 @@ body {
 /* =========================================================
    SECOND TRUCK
    RIGHT → LEFT
-   SAME DESIGN + FULL OPACITY
    ========================================================= */
 
 .moving-truck-two {
-  position:
-    absolute;
+  position: absolute;
 
-  left:
-    auto;
+  left: auto;
+  right: -520px;
 
-  right:
-    -520px;
+  bottom: 19%;
 
-  bottom:
-    19%;
+  width: 450px;
+  height: 205px;
 
-  width:
-    450px;
+  z-index: 4;
 
-  height:
-    205px;
-
-  z-index:
-    4;
-
-  opacity:
-    0;
+  opacity: 0;
 
   transform:
     scaleX(-1)
@@ -882,26 +1102,17 @@ body {
   animation-delay:
     -10s;
 
-  filter:
-    none;
+  filter: none;
 }
-
-
-/* Fully opaque */
 
 .moving-truck-two .moving-truck-body,
 .moving-truck-two .moving-truck-cabin,
 .moving-truck-two .moving-wheel,
 .moving-truck-two .headlight-glow {
-  opacity:
-    1;
+  opacity: 1;
 
-  filter:
-    none;
+  filter: none;
 }
-
-
-/* Keep same colors */
 
 .moving-truck-two .truck-decoration-top,
 .moving-truck-two .truck-art-stripe,
@@ -910,17 +1121,13 @@ body {
 .moving-truck-two .moving-truck-grille,
 .moving-truck-two .moving-truck-light,
 .moving-truck-two .truck-bumper {
-  opacity:
-    1;
+  opacity: 1;
 
-  filter:
-    none;
+  filter: none;
 }
 
 
-/* =========================================================
-   FIX MIRRORED TEXT
-   ========================================================= */
+/* Keep text readable */
 
 .moving-truck-two .moving-truck-art {
   transform:
@@ -939,7 +1146,6 @@ body {
    ========================================================= */
 
 @keyframes secondTruckDrive {
-
   0% {
     transform:
       translateX(0)
@@ -1007,11 +1213,9 @@ body {
    ========================================================= */
 
 .dust {
-  position:
-    absolute;
+  position: absolute;
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 
   background:
     rgba(204, 177, 135, 0.12);
@@ -1027,55 +1231,35 @@ body {
 }
 
 .dust-one {
-  width:
-    130px;
+  width: 130px;
+  height: 25px;
 
-  height:
-    25px;
-
-  bottom:
-    28%;
-
-  left:
-    5%;
+  bottom: 28%;
+  left: 5%;
 }
 
 .dust-two {
-  width:
-    90px;
+  width: 90px;
+  height: 18px;
 
-  height:
-    18px;
-
-  bottom:
-    30%;
-
-  left:
-    13%;
+  bottom: 30%;
+  left: 13%;
 }
 
 .dust-three {
-  width:
-    180px;
+  width: 180px;
+  height: 28px;
 
-  height:
-    28px;
-
-  bottom:
-    27%;
-
-  left:
-    0;
+  bottom: 27%;
+  left: 0;
 }
 
 @keyframes dustMove {
-
   0% {
     transform:
       translateX(-100px);
 
-    opacity:
-      0;
+    opacity: 0;
   }
 
   10% {
@@ -1095,8 +1279,7 @@ body {
     transform:
       translateX(120vw);
 
-    opacity:
-      0;
+    opacity: 0;
   }
 }
 
@@ -1106,20 +1289,14 @@ body {
    ========================================================= */
 
 .dhaba {
-  position:
-    absolute;
+  position: absolute;
 
-  right:
-    5%;
+  right: 5%;
+  bottom: 37%;
 
-  bottom:
-    37%;
+  display: flex;
 
-  display:
-    flex;
-
-  flex-direction:
-    column;
+  flex-direction: column;
 
   padding:
     10px 15px;
@@ -1133,8 +1310,7 @@ body {
   color:
     #ff7049;
 
-  text-align:
-    center;
+  text-align: center;
 
   transform:
     rotate(-2deg);
@@ -1173,86 +1349,65 @@ body {
    ========================================================= */
 
 .power-line {
-  position:
-    absolute;
+  position: absolute;
 
-  width:
-    120%;
+  width: 120%;
+  height: 180px;
 
-  height:
-    180px;
-
-  left:
-    -10%;
-
-  top:
-    17%;
+  left: -10%;
+  top: 17%;
 
   border-top:
     2px solid rgba(220, 205, 181, 0.12);
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 }
 
 
 /* =========================================================
    TOP BAR
-   TRANSPARENT + BOLD
+   FULLY TRANSPARENT
+   CLOCK + GITHUB ONLY
    ========================================================= */
 
 .topbar {
-  position:
-    relative;
+  position: relative;
 
-  height:
-    46px;
+  width: 100%;
 
-  min-height:
-    46px;
+  height: 52px;
+  min-height: 52px;
 
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
+  align-items: center;
+  justify-content: space-between;
 
   padding:
-    0 24px;
+    0 28px;
 
   background:
-    rgba(8, 7, 9, 0.28);
+    transparent;
 
   backdrop-filter:
-    blur(5px);
+    none;
 
   -webkit-backdrop-filter:
-    blur(5px);
+    none;
 
-  border-bottom:
-    1px solid rgba(245, 233, 206, 0.12);
+  border:
+    none;
 
   z-index:
     50;
 }
 
-
-/* =========================================================
-   TOP LEFT
-   ========================================================= */
-
 .top-left {
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    center;
+  align-items: center;
 
-  gap:
-    10px;
+  gap: 10px;
 
   color:
     #eee2cc;
@@ -1262,13 +1417,13 @@ body {
     monospace;
 
   font-size:
-    12px;
+    14px;
 
   font-weight:
-    700;
+    800;
 
   letter-spacing:
-    1.3px;
+    1.2px;
 
   white-space:
     nowrap;
@@ -1279,27 +1434,11 @@ body {
     var(--yellow);
 
   font-size:
-    18px;
+    20px;
 
   font-weight:
-    700;
+    800;
 }
-
-.top-dot {
-  color:
-    var(--yellow);
-
-  font-size:
-    8px;
-
-  font-weight:
-    700;
-}
-
-
-/* =========================================================
-   GITHUB
-   ========================================================= */
 
 .top-right {
   display:
@@ -1310,6 +1449,15 @@ body {
 }
 
 .social-link {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    7px;
+
   color:
     #eee2cc;
 
@@ -1321,13 +1469,13 @@ body {
     monospace;
 
   font-size:
-    13px;
+    14px;
 
   font-weight:
     800;
 
   letter-spacing:
-    1.4px;
+    1.5px;
 
   transition:
     color 0.2s ease,
@@ -1347,7 +1495,7 @@ body {
     var(--yellow);
 
   font-size:
-    11px;
+    12px;
 
   font-weight:
     800;
@@ -1356,14 +1504,13 @@ body {
 
 /* =========================================================
    HERO
+   BIG LORRY.FM
    ========================================================= */
 
 .hero {
-  position:
-    relative;
+  position: relative;
 
-  width:
-    min(1000px, 90vw);
+  width: 100%;
 
   margin:
     clamp(28px, 5vh, 52px)
@@ -1372,9 +1519,6 @@ body {
 
   display:
     flex;
-
-  flex-direction:
-    column;
 
   align-items:
     center;
@@ -1389,28 +1533,10 @@ body {
     10;
 }
 
-.hero .eyebrow {
-  margin:
-    0 0 10px;
-
-  color:
-    var(--orange);
-
-  font-family:
-    "IBM Plex Mono",
-    monospace;
-
-  font-size:
-    clamp(8px, 0.8vw, 11px);
-
-  font-weight:
-    500;
-
-  letter-spacing:
-    clamp(2px, 0.35vw, 5px);
-
-  line-height:
-    1;
+.hero .eyebrow,
+.hero-tag {
+  display:
+    none !important;
 }
 
 .hero h1 {
@@ -1425,16 +1551,16 @@ body {
     sans-serif;
 
   font-size:
-    clamp(58px, 8.5vw, 108px);
+    clamp(82px, 12vw, 155px);
 
   font-weight:
     700;
 
   line-height:
-    0.88;
+    0.9;
 
   letter-spacing:
-    -3px;
+    -5px;
 
   text-align:
     center;
@@ -1443,76 +1569,18 @@ body {
     skew(-3deg);
 
   text-shadow:
-    4px 4px 0 #a7351c,
-    8px 8px 0 rgba(0, 0, 0, 0.55);
+    5px 5px 0 #a7351c,
+    10px 10px 0 rgba(0, 0, 0, 0.6);
 }
 
 
 /* =========================================================
-   HIDE OLD TAGLINE
-   ========================================================= */
-
-.hero-tag {
-  display:
-    none !important;
-}
-
-
-/* =========================================================
-   HAZARD STRIPE
+   HAZARD RAIL REMOVED
    ========================================================= */
 
 .hazard-rail {
-  width:
-    min(600px, 55vw);
-
-  height:
-    11px;
-
-  margin:
-    clamp(26px, 4vh, 38px)
-    auto
-    0;
-
   display:
-    flex;
-
-  overflow:
-    hidden;
-
-  border-radius:
-    4px;
-
-  background:
-    #0d0d0d;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.18);
-
-  box-shadow:
-    0 3px 0 #050505,
-    0 6px 16px rgba(0, 0, 0, 0.4);
-
-  z-index:
-    10;
-}
-
-.hazard-rail span {
-  flex:
-    1;
-
-  background:
-    var(--yellow);
-}
-
-.hazard-rail span:nth-child(2n) {
-  background:
-    var(--orange);
-}
-
-.hazard-rail span:nth-child(3n) {
-  background:
-    var(--teal);
+    none !important;
 }
 
 
@@ -1599,7 +1667,7 @@ body {
 
 
 /* =========================================================
-   SLIGHTLY BIGGER MUSIC PLAYER
+   BIGGER MUSIC PLAYER
    ========================================================= */
 
 .player-area {
@@ -1616,7 +1684,7 @@ body {
     translateX(-50%);
 
   width:
-    min(810px, 78vw);
+    min(860px, 80vw);
 
   margin:
     0;
@@ -1633,16 +1701,16 @@ body {
     100%;
 
   min-height:
-    96px;
+    104px;
 
   padding:
-    14px 22px;
+    15px 24px;
 
   border:
-    1px solid rgba(245, 233, 206, 0.24);
+    1px solid rgba(245, 233, 206, 0.26);
 
   border-radius:
-    50px;
+    54px;
 
   background:
     linear-gradient(
@@ -1653,7 +1721,7 @@ body {
     );
 
   box-shadow:
-    0 14px 38px rgba(0, 0, 0, 0.58),
+    0 15px 40px rgba(0, 0, 0, 0.58),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   backdrop-filter:
@@ -1669,11 +1737,6 @@ body {
     auto;
 }
 
-
-/* =========================================================
-   PLAYER CONTENT
-   ========================================================= */
-
 .player-content {
   width:
     100%;
@@ -1685,7 +1748,7 @@ body {
     center;
 
   gap:
-    17px;
+    19px;
 }
 
 
@@ -1695,10 +1758,10 @@ body {
 
 .cover-frame {
   width:
-    70px;
+    78px;
 
   flex:
-    0 0 70px;
+    0 0 78px;
 
   position:
     relative;
@@ -1711,13 +1774,13 @@ body {
 
 .cover {
   width:
-    70px;
+    78px;
 
   height:
-    70px;
+    78px;
 
   border:
-    2px solid rgba(255, 194, 46, 0.8);
+    2px solid rgba(255, 194, 46, 0.85);
 
   border-radius:
     50%;
@@ -1729,7 +1792,7 @@ body {
     #171516;
 
   box-shadow:
-    0 5px 14px rgba(0, 0, 0, 0.45);
+    0 5px 16px rgba(0, 0, 0, 0.48);
 }
 
 .cover img {
@@ -1744,6 +1807,35 @@ body {
 
   display:
     block;
+
+  transform-origin:
+    center center;
+}
+
+
+/* Rotate artwork when playing */
+
+.playing .cover img {
+  animation:
+    coverRotate
+    7s
+    linear
+    infinite;
+
+  animation-play-state:
+    running;
+}
+
+@keyframes coverRotate {
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
 }
 
 
@@ -1794,7 +1886,7 @@ body {
     sans-serif;
 
   font-size:
-    18px;
+    19px;
 
   font-weight:
     700;
@@ -1817,10 +1909,10 @@ body {
     1;
 
   margin:
-    4px 0 7px;
+    4px 0 8px;
 
   color:
-    rgba(245, 233, 206, 0.72);
+    rgba(245, 233, 206, 0.78);
 
   font-size:
     12px;
@@ -1848,7 +1940,7 @@ body {
     100%;
 
   height:
-    5px;
+    6px;
 
   position:
     relative;
@@ -1904,10 +1996,10 @@ body {
     0%;
 
   width:
-    11px;
+    12px;
 
   height:
-    11px;
+    12px;
 
   transform:
     translate(-50%, -50%);
@@ -1922,6 +2014,11 @@ body {
     2px solid #ff8d38;
 }
 
+
+/* =========================================================
+   SONG TIMES
+   ========================================================= */
+
 .seektimes {
   grid-column:
     1;
@@ -1933,17 +2030,31 @@ body {
     space-between;
 
   margin-top:
-    3px;
+    5px;
 
   color:
-    rgba(245, 233, 206, 0.55);
+    rgba(245, 233, 206, 0.82);
 
   font-family:
     "IBM Plex Mono",
     monospace;
 
   font-size:
-    8px;
+    11px;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    0.3px;
+}
+
+.seektimes span {
+  font-size:
+    11px;
+
+  font-weight:
+    600;
 }
 
 
@@ -1965,15 +2076,15 @@ body {
     center;
 
   gap:
-    12px;
+    13px;
 }
 
 .btn.small {
   width:
-    32px;
+    36px;
 
   height:
-    32px;
+    36px;
 
   border:
     1px solid rgba(245, 233, 206, 0.5);
@@ -2005,10 +2116,10 @@ body {
 
 .btn.small svg {
   width:
-    13px;
+    15px;
 
   height:
-    13px;
+    15px;
 
   fill:
     currentColor;
@@ -2016,10 +2127,10 @@ body {
 
 .playbtn {
   width:
-    52px;
+    58px;
 
   height:
-    52px;
+    58px;
 
   border:
     2px solid white;
@@ -2055,10 +2166,10 @@ body {
 
 .playbtn svg {
   width:
-    19px;
+    21px;
 
   height:
-    19px;
+    21px;
 
   position:
     absolute;
@@ -2089,7 +2200,7 @@ body {
 
 
 /* =========================================================
-   EQUALIZER
+   STRAIGHT MOVING SOUND BARS
    ========================================================= */
 
 .eq {
@@ -2099,26 +2210,47 @@ body {
   align-items:
     flex-end;
 
+  justify-content:
+    center;
+
   gap:
-    2px;
+    5px;
+
+  width:
+    52px;
 
   height:
-    20px;
+    30px;
+
+  margin-left:
+    2px;
 }
 
 .eq span {
+  display:
+    block;
+
   width:
-    3px;
+    4px;
+
+  height:
+    12px;
+
+  border-radius:
+    5px;
 
   background:
     #0d988e;
 
-  border-radius:
-    3px;
+  transform-origin:
+    bottom center;
+
+  transform:
+    scaleY(0.45);
 
   animation:
-    equalizerBounce
-    0.9s
+    straightEqualizer
+    0.75s
     ease-in-out
     infinite;
 
@@ -2131,23 +2263,61 @@ body {
     running;
 }
 
-@keyframes equalizerBounce {
+.eq span:nth-child(1) {
+  animation-delay:
+    -0.10s;
+}
 
-  0%,
-  100% {
-    height:
-      5px;
+.eq span:nth-child(2) {
+  animation-delay:
+    -0.25s;
+}
+
+.eq span:nth-child(3) {
+  animation-delay:
+    -0.40s;
+}
+
+.eq span:nth-child(4) {
+  animation-delay:
+    -0.20s;
+}
+
+.eq span:nth-child(5) {
+  animation-delay:
+    -0.35s;
+}
+
+@keyframes straightEqualizer {
+  0% {
+    transform:
+      scaleY(0.35);
+  }
+
+  25% {
+    transform:
+      scaleY(0.85);
   }
 
   50% {
-    height:
-      17px;
+    transform:
+      scaleY(1.45);
+  }
+
+  75% {
+    transform:
+      scaleY(0.65);
+  }
+
+  100% {
+    transform:
+      scaleY(0.35);
   }
 }
 
 
 /* =========================================================
-   ON AIR REMOVED
+   REMOVE ON AIR
    ========================================================= */
 
 .on-air {
@@ -2294,15 +2464,9 @@ footer {
    ========================================================= */
 
 @media (min-width: 1200px) {
-
   .hero {
     margin-top:
       28px;
-  }
-
-  .hazard-rail {
-    margin-top:
-      34px;
   }
 
   .player-quote {
@@ -2313,11 +2477,10 @@ footer {
 
 
 /* =========================================================
-   SHORT SCREEN
+   SHORT SCREENS
    ========================================================= */
 
 @media (max-height: 850px) {
-
   .hero {
     margin-top:
       24px;
@@ -2325,12 +2488,7 @@ footer {
 
   .hero h1 {
     font-size:
-      clamp(52px, 7.8vw, 92px);
-  }
-
-  .hazard-rail {
-    margin-top:
-      24px;
+      clamp(72px, 10vw, 120px);
   }
 
   .player-quote {
@@ -2346,43 +2504,26 @@ footer {
 
 
 /* =========================================================
-   VERY SHORT SCREEN
+   VERY SHORT SCREENS
    ========================================================= */
 
 @media (max-height: 720px) {
-
   .topbar {
     height:
-      40px;
+      44px;
 
     min-height:
-      40px;
+      44px;
   }
 
   .hero {
     margin-top:
-      12px;
-  }
-
-  .hero .eyebrow {
-    margin-bottom:
-      6px;
-
-    font-size:
-      7px;
+      10px;
   }
 
   .hero h1 {
     font-size:
-      clamp(44px, 7vw, 72px);
-  }
-
-  .hazard-rail {
-    margin-top:
-      18px;
-
-    height:
-      8px;
+      clamp(58px, 9vw, 92px);
   }
 
   .player-quote {
@@ -2400,7 +2541,7 @@ footer {
 
   .dashboard {
     min-height:
-      88px;
+      96px;
   }
 }
 
@@ -2410,7 +2551,6 @@ footer {
    ========================================================= */
 
 @media (max-width: 850px) {
-
   .topbar {
     padding:
       0 18px;
@@ -2418,10 +2558,10 @@ footer {
 
   .top-left {
     font-size:
-      9px;
+      11px;
 
     gap:
-      6px;
+      7px;
   }
 
   .social-link {
@@ -2453,9 +2593,6 @@ footer {
       scale(0.72);
   }
 
-
-  /* Floating horns */
-
   .horn-row {
     right:
       15px;
@@ -2471,7 +2608,6 @@ footer {
     height:
       42px;
   }
-
 }
 
 
@@ -2480,45 +2616,37 @@ footer {
    ========================================================= */
 
 @media (max-width: 650px) {
-
   .topbar {
     height:
-      44px;
+      46px;
 
     min-height:
-      44px;
+      46px;
 
     padding:
-      0 12px;
+      0 14px;
 
     background:
-      rgba(8, 7, 9, 0.24);
+      transparent;
+
+    border:
+      none;
   }
 
   .top-left {
     font-size:
-      8px;
+      10px;
+
+    font-weight:
+      800;
 
     gap:
       6px;
-
-    letter-spacing:
-      0.8px;
   }
 
   .clock-icon {
     font-size:
-      15px;
-  }
-
-  .top-dot {
-    font-size:
-      6px;
-  }
-
-  .highway-text {
-    display:
-      none;
+      17px;
   }
 
   .social-link {
@@ -2540,37 +2668,78 @@ footer {
       94vw;
 
     margin-top:
-      20px;
-  }
-
-  .hero .eyebrow {
-    font-size:
-      7px;
-
-    letter-spacing:
-      2px;
+      18px;
   }
 
   .hero h1 {
     font-size:
-      clamp(44px, 15vw, 70px);
+      clamp(56px, 16vw, 90px);
 
     letter-spacing:
-      -2px;
+      -3px;
   }
 
 
-  /* Hazard */
+  /* More birds */
 
-  .hazard-rail {
-    width:
-      72vw;
+  .birds {
+    transform:
+      scale(0.7);
+  }
 
-    margin-top:
-      20px;
+  .birds-one {
+    top:
+      15%;
+  }
 
-    height:
-      8px;
+  .birds-two {
+    top:
+      23%;
+  }
+
+  .birds-three {
+    display:
+      none;
+  }
+
+  .birds-four {
+    top:
+      16%;
+
+    left:
+      -180px;
+  }
+
+  .birds-five {
+    top:
+      24%;
+
+    left:
+      -260px;
+  }
+
+  .birds-six {
+    top:
+      10%;
+
+    left:
+      -320px;
+  }
+
+  .birds-seven {
+    top:
+      29%;
+
+    left:
+      -400px;
+  }
+
+  .birds-eight {
+    top:
+      7%;
+
+    left:
+      -450px;
   }
 
 
@@ -2609,32 +2778,7 @@ footer {
   }
 
 
-  /* Birds */
-
-  .birds {
-    transform:
-      scale(0.7);
-  }
-
-  .birds-one {
-    top:
-      15%;
-  }
-
-  .birds-two {
-    top:
-      23%;
-  }
-
-  .birds-three {
-    display:
-      none;
-  }
-
-
-  /* =====================================================
-     BIGGER PLAYER - MOBILE
-     ===================================================== */
+  /* Player */
 
   .player-area {
     width:
@@ -2646,39 +2790,39 @@ footer {
 
   .dashboard {
     min-height:
-      76px;
+      82px;
 
     padding:
-      9px 12px;
+      10px 13px;
 
     border-radius:
-      38px;
+      42px;
   }
 
   .player-content {
     gap:
-      10px;
+      11px;
   }
 
   .cover-frame {
     width:
-      52px;
+      56px;
 
     flex-basis:
-      52px;
+      56px;
   }
 
   .cover {
     width:
-      52px;
+      56px;
 
     height:
-      52px;
+      56px;
   }
 
   .track {
     font-size:
-      13px;
+      14px;
   }
 
   .artist {
@@ -2686,28 +2830,42 @@ footer {
       9px;
   }
 
+  .seektimes,
+  .seektimes span {
+    font-size:
+      9px !important;
+  }
+
   .btn.small {
     width:
-      25px;
+      27px;
 
     height:
-      25px;
+      27px;
+  }
+
+  .btn.small svg {
+    width:
+      12px;
+
+    height:
+      12px;
   }
 
   .playbtn {
     width:
-      40px;
+      44px;
 
     height:
-      40px;
+      44px;
   }
 
   .playbtn svg {
     width:
-      14px;
+      15px;
 
     height:
-      14px;
+      15px;
   }
 
   .controls {
@@ -2715,8 +2873,24 @@ footer {
       6px;
   }
 
+  .eq {
+    width:
+      36px;
 
-  /* Floating horns */
+    height:
+      22px;
+
+    gap:
+      3px;
+  }
+
+  .eq span {
+    width:
+      3px;
+  }
+
+
+  /* Horns */
 
   .horn-row {
     right:
@@ -2741,15 +2915,31 @@ footer {
     font-size:
       12px;
   }
-
 }
 
 
 /* =========================================================
-   SMALL PHONE
+   SMALL PHONES
    ========================================================= */
 
 @media (max-width: 430px) {
+  .topbar {
+    height:
+      44px;
+
+    min-height:
+      44px;
+  }
+
+  .top-left {
+    font-size:
+      9px;
+  }
+
+  .social-link {
+    font-size:
+      9px;
+  }
 
   .hero {
     margin-top:
@@ -2758,12 +2948,10 @@ footer {
 
   .hero h1 {
     font-size:
-      46px;
-  }
+      48px;
 
-  .hazard-rail {
-    margin-top:
-      16px;
+    letter-spacing:
+      -2px;
   }
 
   .player-quote {
@@ -2779,12 +2967,26 @@ footer {
       4px 9px;
   }
 
-  .moving-truck-two {
-    bottom:
-      19%;
+
+  /* Small bird groups */
+
+  .birds-four {
+    transform:
+      scale(0.48);
   }
 
-  .birds-two {
+  .birds-five {
+    transform:
+      scale(0.34);
+  }
+
+  .birds-six {
+    transform:
+      scale(0.40);
+  }
+
+  .birds-seven,
+  .birds-eight {
     display:
       none;
   }
@@ -2802,13 +3004,13 @@ footer {
 
   .dashboard {
     min-height:
-      72px;
+      76px;
 
     padding:
       8px 10px;
 
     border-radius:
-      34px;
+      38px;
   }
 
   .cover-frame {
@@ -2835,6 +3037,12 @@ footer {
   .artist {
     font-size:
       8px;
+  }
+
+  .seektimes,
+  .seektimes span {
+    font-size:
+      9px !important;
   }
 
   .controls {
@@ -2866,8 +3074,16 @@ footer {
       13px;
   }
 
+  .eq {
+    width:
+      30px;
 
-  /* Floating horns */
+    height:
+      20px;
+  }
+
+
+  /* Horns */
 
   .horn-row {
     right:
@@ -2889,7 +3105,6 @@ footer {
     font-size:
       11px;
   }
-
 }
 
 
@@ -2913,7 +3128,6 @@ a:focus-visible,
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -2928,259 +3142,9 @@ a:focus-visible,
   }
 
   .birds,
+  .moving-truck,
   .moving-truck-two {
     animation-play-state:
       paused;
-  }
-}
-
-/* =========================================================
-   FINAL PLAYER OVERRIDES
-   Bigger player + bigger controls + larger diagonal
-   animated equalizer + rotating song artwork
-   ========================================================= */
-
-.player-area {
-  width: min(860px, 80vw);
-  bottom: 22px;
-}
-
-.dashboard {
-  min-height: 104px;
-  padding: 15px 24px;
-  border-radius: 54px;
-}
-
-.player-content {
-  gap: 19px;
-}
-
-.cover-frame {
-  width: 78px;
-  flex: 0 0 78px;
-}
-
-.cover {
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
-}
-
-.cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transform-origin: center center;
-}
-
-.playing .cover img {
-  animation: lorryCoverRotate 7s linear infinite;
-}
-
-@keyframes lorryCoverRotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.track {
-  font-size: 19px;
-}
-
-.artist {
-  font-size: 12px;
-  margin: 4px 0 8px;
-}
-
-.seekbar {
-  height: 6px;
-}
-
-.seekthumb {
-  width: 12px;
-  height: 12px;
-}
-
-.controls {
-  gap: 13px;
-}
-
-.btn.small {
-  width: 36px;
-  height: 36px;
-}
-
-.btn.small svg {
-  width: 15px;
-  height: 15px;
-}
-
-.playbtn {
-  width: 58px;
-  height: 58px;
-}
-
-.playbtn svg {
-  width: 21px;
-  height: 21px;
-}
-
-/* Larger straight equalizer */
-.eq {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 5px;
-  width: 58px;
-  height: 32px;
-  margin-left: 2px;
-}
-
-.eq span {
-  display: block;
-  width: 5px;
-  height: 13px;
-  border-radius: 6px;
-  background: #0d988e;
-  transform-origin: bottom center;
-  transform: scaleY(0.45);
-  animation: lorryStraightEqualizer 0.75s ease-in-out infinite;
-  animation-play-state: paused;
-}
-
-.playing .eq span {
-  animation-play-state: running;
-}
-
-.eq span:nth-child(1) { animation-delay: -0.10s; }
-.eq span:nth-child(2) { animation-delay: -0.25s; }
-.eq span:nth-child(3) { animation-delay: -0.40s; }
-.eq span:nth-child(4) { animation-delay: -0.20s; }
-.eq span:nth-child(5) { animation-delay: -0.35s; }
-
-@keyframes lorryStraightEqualizer {
-  0% {
-    transform: scaleY(0.35);
-  }
-  25% {
-    transform: scaleY(0.85);
-  }
-  50% {
-    transform: scaleY(1.45);
-  }
-  75% {
-    transform: scaleY(0.65);
-  }
-  100% {
-    transform: scaleY(0.35);
-  }
-}
-
-@media (max-width: 650px) {
-  .player-area {
-    width: calc(100vw - 20px);
-    bottom: 10px;
-  }
-
-  .dashboard {
-    min-height: 82px;
-    padding: 10px 13px;
-    border-radius: 42px;
-  }
-
-  .player-content {
-    gap: 11px;
-  }
-
-  .cover-frame {
-    width: 56px;
-    flex-basis: 56px;
-  }
-
-  .cover {
-    width: 56px;
-    height: 56px;
-  }
-
-  .track {
-    font-size: 14px;
-  }
-
-  .artist {
-    font-size: 9px;
-  }
-
-  .seekbar {
-    height: 5px;
-  }
-
-  .btn.small {
-    width: 27px;
-    height: 27px;
-  }
-
-  .btn.small svg {
-    width: 12px;
-    height: 12px;
-  }
-
-  .playbtn {
-    width: 44px;
-    height: 44px;
-  }
-
-  .playbtn svg {
-    width: 15px;
-    height: 15px;
-  }
-
-  .controls {
-    gap: 6px;
-  }
-
-  .eq {
-    width: 38px;
-    height: 24px;
-    gap: 3px;
-  }
-
-  .eq span {
-    width: 3px;
-    height: 10px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .playing .cover img,
-  .playing .eq span {
-    animation-play-state: paused;
-  }
-}
-
-/* =========================================================
-   BIGGER SONG TIME
-   ========================================================= */
-
-.seektimes {
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  color: rgba(245, 233, 206, 0.82) !important;
-  letter-spacing: 0.3px;
-  margin-top: 5px !important;
-}
-
-.seektimes span {
-  font-size: 11px !important;
-  font-weight: 600 !important;
-}
-
-@media (max-width: 650px) {
-  .seektimes,
-  .seektimes span {
-    font-size: 9px !important;
   }
 }
