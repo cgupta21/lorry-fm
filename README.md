@@ -183,14 +183,6 @@ The rotating messages under the LORRY.FM heading come from the `rotatingLines` a
 
 ---
 
-## 🔢 Visit Counter
-
-`script.js` calls [CountAPI](https://countapi.xyz) to keep a running total of page loads, displayed live on the site. Before deploying your own copy, update the `namespace` value near the bottom of `script.js` to something unique to you (e.g. your own domain) so your count doesn't collide with anyone else's project using the same default value.
-
-> Note: this counts total page loads, not concurrent live viewers. A true "X people online right now" counter would need a backend with presence tracking (e.g. Firebase Realtime Database).
-
----
-
 ## 🎨 Design Inspiration
 
 - 🚛 Decorated Indian lorries
