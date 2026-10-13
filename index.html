@@ -4,19 +4,14 @@
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
   <title>
     lorry.fm — Highway anthems from the back of a Tata 407
   </title>
 
-  <meta
-    name="description"
-    content="lorry.fm — the horn-honking, dhaba-stop anthems that blast out of every decorated Indian truck cabin."
-  >
+  <meta name="description"
+    content="lorry.fm — the horn-honking, dhaba-stop anthems that blast out of every decorated Indian truck cabin.">
 
   <!-- Favicon -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -34,10 +29,7 @@
 
   <meta property="og:title" content="LORRY.FM">
 
-  <meta
-    property="og:description"
-    content="Highway anthems from the back of a Tata 407."
-  >
+  <meta property="og:description" content="Highway anthems from the back of a Tata 407.">
 
   <meta property="og:image" content="og-image.png">
 
@@ -48,23 +40,16 @@
 
   <!-- Fonts -->
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link
     href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  >
+    rel="stylesheet">
 
 
   <!-- Main CSS -->
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+  <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -76,10 +61,7 @@
        BACKGROUND SCENE
        ===================================================== -->
 
-  <div
-    class="background"
-    aria-hidden="true"
-  >
+  <div class="background" aria-hidden="true">
 
     <div class="sky"></div>
 
@@ -221,13 +203,9 @@
 
       <!-- Wheels -->
 
-      <div
-        class="moving-wheel moving-wheel-one"
-      ></div>
+      <div class="moving-wheel moving-wheel-one"></div>
 
-      <div
-        class="moving-wheel moving-wheel-two"
-      ></div>
+      <div class="moving-wheel moving-wheel-two"></div>
 
 
       <div class="headlight-glow"></div>
@@ -288,13 +266,9 @@
 
       <!-- Wheels -->
 
-      <div
-        class="moving-wheel moving-wheel-one"
-      ></div>
+      <div class="moving-wheel moving-wheel-one"></div>
 
-      <div
-        class="moving-wheel moving-wheel-two"
-      ></div>
+      <div class="moving-wheel moving-wheel-two"></div>
 
 
       <div class="headlight-glow"></div>
@@ -341,44 +315,94 @@
 
   <header class="topbar">
 
-
     <!-- Clock -->
-
     <div class="top-left">
-
-      <span class="clock-icon">
-        ◷
-      </span>
-
-      <span id="liveClock">
-        --:--
-      </span>
-
+      <span class="clock-icon" aria-hidden="true">◷</span>
+      <span id="liveClock" aria-label="Current time">--:--</span>
     </div>
 
+    <!-- Station Badge -->
+    <div class="top-center">
+      <span class="station-badge">
+        <span class="live-dot" aria-hidden="true"></span>
+        HIGHWAY RADIO
+      </span>
+    </div>
 
-    <!-- GitHub -->
-
+    <!-- Navigation / GitHub / Menu -->
     <div class="top-right">
-
-      <a
-        href="https://github.com/cgupta21/lorry-fm"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-link github-link"
-      >
-
-        <span class="github-icon">
-          ◉
-        </span>
-
-        GITHUB
-
+      <a href="https://github.com/cgupta21/lorry-fm" target="_blank" rel="noopener noreferrer"
+        class="social-link github-link desktop-only" aria-label="View source code on GitHub (opens in new tab)">
+        <span class="github-icon" aria-hidden="true">◉</span>
+        <span>GITHUB</span>
       </a>
 
+      <!-- Mobile & Keyboard Menu Toggle -->
+      <button type="button" class="menu-toggle-btn" id="menuToggleBtn" aria-label="Open menu" aria-expanded="false"
+        aria-controls="navDrawer">
+        <span class="hamburger-box" aria-hidden="true">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
     </div>
 
   </header>
+
+  <!-- =====================================================
+       NAVIGATION / ABOUT DRAWER
+       ===================================================== -->
+  <div class="nav-drawer-backdrop" id="navDrawerBackdrop" aria-hidden="true"></div>
+
+  <nav class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true" aria-label="Lorry FM menu" hidden>
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <span class="drawer-logo">LORRY.FM</span>
+        <span class="drawer-tagline">Highway Anthems • Tata 407</span>
+      </div>
+      <button type="button" class="drawer-close-btn" id="menuCloseBtn" aria-label="Close menu">
+        ✕
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="drawer-section">
+        <h2 class="drawer-heading">ABOUT</h2>
+        <p class="drawer-text">
+          The horn-honking, dhaba-stop anthems blasting out of decorated Indian truck cabins. 50 golden highway tracks,
+          retro artwork, and authentic truck horns.
+        </p>
+      </div>
+
+      <div class="drawer-section">
+        <h2 class="drawer-heading">KEYBOARD SHORTCUTS</h2>
+        <ul class="drawer-shortcuts">
+          <li><kbd>Space</kbd> <span>Play / Pause</span></li>
+          <li><kbd>←</kbd> <kbd>→</kbd> <span>Seek ±5 seconds</span></li>
+          <li><kbd>N</kbd> <span>Next track</span></li>
+          <li><kbd>P</kbd> <span>Previous track</span></li>
+          <li><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <span>Honk horns</span></li>
+          <li><kbd>Esc</kbd> <span>Close menu</span></li>
+        </ul>
+      </div>
+
+      <div class="drawer-section">
+        <h2 class="drawer-heading">QUICK HORNS</h2>
+        <div class="drawer-horns">
+          <button type="button" class="drawer-horn-btn dh1" id="drawerHorn1">📯 Horn 1</button>
+          <button type="button" class="drawer-horn-btn dh2" id="drawerHorn2">📯 Horn 2</button>
+          <button type="button" class="drawer-horn-btn dh3" id="drawerHorn3">📯 Horn 3</button>
+        </div>
+      </div>
+
+      <div class="drawer-section drawer-footer-section">
+        <a href="https://github.com/cgupta21/lorry-fm" target="_blank" rel="noopener noreferrer" class="drawer-link-btn"
+          id="drawerGithubLink">
+          <span class="github-icon" aria-hidden="true">◉</span>
+          VIEW ON GITHUB
+        </a>
+      </div>
+    </div>
+  </nav>
 
 
   <!-- =====================================================
@@ -411,21 +435,12 @@
        FLOATING HORNS
        ===================================================== -->
 
-  <div
-    class="horn-row"
-    role="group"
-    aria-label="Play a horn sound"
-  >
+  <div class="horn-row" role="group" aria-label="Play a horn sound">
 
 
     <!-- Horn 1 -->
 
-    <button
-      type="button"
-      class="horn-btn h1"
-      id="hornBtn1"
-      aria-label="Horn sound 1"
-    >
+    <button type="button" class="horn-btn h1" id="hornBtn1" aria-label="Horn sound 1">
 
       <span class="horn-symbol">
         📯
@@ -436,12 +451,7 @@
 
     <!-- Horn 2 -->
 
-    <button
-      type="button"
-      class="horn-btn h2"
-      id="hornBtn2"
-      aria-label="Horn sound 2"
-    >
+    <button type="button" class="horn-btn h2" id="hornBtn2" aria-label="Horn sound 2">
 
       <span class="horn-symbol">
         📯
@@ -452,12 +462,7 @@
 
     <!-- Horn 3 -->
 
-    <button
-      type="button"
-      class="horn-btn h3"
-      id="hornBtn3"
-      aria-label="Horn sound 3"
-    >
+    <button type="button" class="horn-btn h3" id="hornBtn3" aria-label="Horn sound 3">
 
       <span class="horn-symbol">
         📯
@@ -475,10 +480,7 @@
   <main class="player-area">
 
 
-    <div
-      class="dashboard panel"
-      id="panel"
-    >
+    <div class="dashboard panel" id="panel">
 
 
       <div class="player-content">
@@ -492,10 +494,7 @@
 
           <div class="cover">
 
-            <img
-              id="coverImg"
-              alt="Album art for the currently playing song"
-            >
+            <img id="coverImg" alt="Album art for the currently playing song">
 
           </div>
 
@@ -511,20 +510,14 @@
 
           <!-- Track title -->
 
-          <p
-            class="track"
-            id="trackTitle"
-          >
+          <p class="track" id="trackTitle">
             Chand Se Parda Kijiye
           </p>
 
 
           <!-- Artist -->
 
-          <p
-            class="artist"
-            id="trackArtist"
-          >
+          <p class="artist" id="trackArtist">
             Kumar Sanu
           </p>
 
@@ -533,26 +526,12 @@
                SEEK BAR
                ================================================= -->
 
-          <div
-            class="seekbar"
-            id="seekbar"
-            role="slider"
-            tabindex="0"
-            aria-label="Seek within song"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0"
-          >
+          <div class="seekbar" id="seekbar" role="slider" tabindex="0" aria-label="Seek within song" aria-valuemin="0"
+            aria-valuemax="100" aria-valuenow="0">
 
-            <div
-              class="seekfill"
-              id="seekfill"
-            ></div>
+            <div class="seekfill" id="seekfill"></div>
 
-            <div
-              class="seekthumb"
-              id="seekthumb"
-            ></div>
+            <div class="seekthumb" id="seekthumb"></div>
 
           </div>
 
@@ -583,21 +562,11 @@
 
             <!-- Previous -->
 
-            <button
-              type="button"
-              class="btn small"
-              id="prevbtn"
-              aria-label="Previous track"
-            >
+            <button type="button" class="btn small" id="prevbtn" aria-label="Previous track">
 
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
 
-                <path
-                  d="M6 6h2v12H6zM20 6L10 12l10 6z"
-                />
+                <path d="M6 6h2v12H6zM20 6L10 12l10 6z" />
 
               </svg>
 
@@ -606,36 +575,18 @@
 
             <!-- Play / Pause -->
 
-            <button
-              type="button"
-              class="playbtn"
-              id="playbtn"
-              aria-label="Play"
-              aria-pressed="false"
-            >
+            <button type="button" class="playbtn" id="playbtn" aria-label="Play" aria-pressed="false">
 
-              <svg
-                class="icon-play"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true">
 
-                <path
-                  d="M8 5v14l11-7z"
-                />
+                <path d="M8 5v14l11-7z" />
 
               </svg>
 
 
-              <svg
-                class="icon-pause"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true">
 
-                <path
-                  d="M6 5h4v14H6zM14 5h4v14h-4z"
-                />
+                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
 
               </svg>
 
@@ -644,21 +595,11 @@
 
             <!-- Next -->
 
-            <button
-              type="button"
-              class="btn small"
-              id="nextbtn"
-              aria-label="Next track"
-            >
+            <button type="button" class="btn small" id="nextbtn" aria-label="Next track">
 
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
 
-                <path
-                  d="M16 6h2v12h-2zM4 6l10 6-10 6z"
-                />
+                <path d="M16 6h2v12h-2zM4 6l10 6-10 6z" />
 
               </svg>
 
@@ -667,11 +608,7 @@
 
             <!-- Sound bars -->
 
-            <div
-              class="eq"
-              id="eq"
-              aria-hidden="true"
-            >
+            <div class="eq" id="eq" aria-hidden="true">
 
               <span></span>
               <span></span>
@@ -696,10 +633,7 @@
        AUDIO
        ===================================================== -->
 
-  <audio
-    id="track"
-    preload="none"
-  ></audio>
+  <audio id="track" preload="none"></audio>
 
 
   <!-- =====================================================

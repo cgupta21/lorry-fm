@@ -1187,6 +1187,19 @@
           'swap'
         );
 
+        if('mediaSession' in navigator){
+          try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+              title: song.title,
+              artist: song.artist,
+              album: 'Lorry FM — Highway Anthems',
+              artwork: [
+                { src: song.cover || fallbackCover, sizes: '512x512', type: 'image/jpeg' }
+              ]
+            });
+          } catch(e) {}
+        }
+
       },
       (
         hasEverPlayed &&
@@ -1863,6 +1876,165 @@
 
 
  
+
+  // ===================================================
+  // NAVIGATION DRAWER & ACCESSIBILITY
+  // ===================================================
+
+  var menuToggleBtn = document.getElementById('menuToggleBtn');
+  var menuCloseBtn = document.getElementById('menuCloseBtn');
+  var navDrawer = document.getElementById('navDrawer');
+  var navDrawerBackdrop = document.getElementById('navDrawerBackdrop');
+
+  function openMenu(){
+    if(!navDrawer) return;
+    navDrawer.removeAttribute('hidden');
+    void navDrawer.offsetWidth;
+    navDrawer.classList.add('active');
+    if(navDrawerBackdrop) navDrawerBackdrop.classList.add('active');
+    document.body.classList.add('menu-open');
+    if(menuToggleBtn){
+      menuToggleBtn.setAttribute('aria-expanded', 'true');
+      menuToggleBtn.classList.add('menu-open');
+    }
+    if(menuCloseBtn) menuCloseBtn.focus();
+  }
+
+  function closeMenu(){
+    if(!navDrawer) return;
+    navDrawer.classList.remove('active');
+    if(navDrawerBackdrop) navDrawerBackdrop.classList.remove('active');
+    document.body.classList.remove('menu-open');
+    if(menuToggleBtn){
+      menuToggleBtn.setAttribute('aria-expanded', 'false');
+      menuToggleBtn.classList.remove('menu-open');
+      menuToggleBtn.focus();
+    }
+    setTimeout(function(){
+      if(!navDrawer.classList.contains('active')){
+        navDrawer.setAttribute('hidden', '');
+      }
+    }, 300);
+  }
+
+  if(menuToggleBtn){
+    menuToggleBtn.addEventListener('click', function(){
+      if(navDrawer && navDrawer.classList.contains('active')){
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+  }
+
+  if(menuCloseBtn){
+    menuCloseBtn.addEventListener('click', closeMenu);
+  }
+
+  if(navDrawerBackdrop){
+    navDrawerBackdrop.addEventListener('click', closeMenu);
+  }
+
+  // Drawer quick horns
+  var drawerHorn1 = document.getElementById('drawerHorn1');
+  if(drawerHorn1){
+    drawerHorn1.addEventListener('click', function(){
+      playHorn(0, this);
+    });
+  }
+
+  var drawerHorn2 = document.getElementById('drawerHorn2');
+  if(drawerHorn2){
+    drawerHorn2.addEventListener('click', function(){
+      playHorn(1, this);
+    });
+  }
+
+  var drawerHorn3 = document.getElementById('drawerHorn3');
+  if(drawerHorn3){
+    drawerHorn3.addEventListener('click', function(){
+      playHorn(2, this);
+    });
+  }
+
+  // ===================================================
+  // GLOBAL KEYBOARD SHORTCUTS
+  // ===================================================
+
+  window.addEventListener('keydown', function(e){
+    var tag = e.target && e.target.tagName;
+    if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT'){
+      return;
+    }
+
+    if(e.key === 'Escape'){
+      if(navDrawer && navDrawer.classList.contains('active')){
+        closeMenu();
+        e.preventDefault();
+      }
+      return;
+    }
+
+    // Spacebar to toggle Play / Pause
+    if(e.key === ' ' || e.code === 'Space'){
+      if(e.target && e.target.tagName === 'BUTTON'){
+        return;
+      }
+      e.preventDefault();
+      if(playing){
+        stop();
+      } else {
+        start();
+      }
+      return;
+    }
+
+    // Key 'n' or 'N' for next track
+    if((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey){
+      next();
+      return;
+    }
+
+    // Key 'p' or 'P' for previous track
+    if((e.key === 'p' || e.key === 'P') && !e.ctrlKey && !e.metaKey && !e.altKey){
+      prev();
+      return;
+    }
+
+    // Horn keys 1, 2, 3
+    if(e.key === '1'){
+      var h1 = document.getElementById('hornBtn1');
+      playHorn(0, h1);
+      return;
+    }
+    if(e.key === '2'){
+      var h2 = document.getElementById('hornBtn2');
+      playHorn(1, h2);
+      return;
+    }
+    if(e.key === '3'){
+      var h3 = document.getElementById('hornBtn3');
+      playHorn(2, h3);
+      return;
+    }
+  });
+
+  // MediaSession Action Handlers
+  if('mediaSession' in navigator){
+    try {
+      navigator.mediaSession.setActionHandler('play', function(){ start(); });
+      navigator.mediaSession.setActionHandler('pause', function(){ stop(); });
+      navigator.mediaSession.setActionHandler('previoustrack', function(){ prev(); });
+      navigator.mediaSession.setActionHandler('nexttrack', function(){ next(); });
+      navigator.mediaSession.setActionHandler('seekto', function(details){
+        if(details.seekTime !== undefined && track.duration){
+          track.currentTime = details.seekTime;
+          updateSeekUI(track.currentTime, track.duration);
+        }
+      });
+    } catch(e) {}
+  }
+
 
   // ===================================================
   // INITIAL LOAD
