@@ -23,17 +23,19 @@ The horn-honking, dhaba-stop radio player that lives inside every decorated Indi
 
 - 🎵 Curated playlist player with cover art per track
 - ▶️ Play / Pause, ⏮️ Previous, ⏭️ Next controls
-- ⏱️ Draggable and keyboard-accessible seek bar
-- 📯 3 horn buttons, each with its own sound
-- ⏸️ Music auto-pauses when a horn plays, then resumes automatically
-- 🔊 Horn audio never mixes with the song
-- 🕐 Live clock
-- 💬 Rotating truck-art style quote lines
+- ⏱️ Draggable seek bar with real-time visual scrubbing
+- 📯 3 authentic horn buttons with multi-horn concurrency management
+- ⏸️ Music auto-pauses when horns play and smoothly resumes once all active horns finish
+- 🔊 Horn audio never mixes with music playback
+- 🕐 Live highway clock
+- 💬 Rotating truck-art Hindi quotes rendered in authentic Devanagari typography
+- 📀 Vinyl record animation that preserves its rotation angle across pause and resume
+- 📖 Accessible slide-out navigation drawer with keyboard shortcuts & quick horns
 - 📊 Animated music equalizer
-- 🚛 Animated highway + lorry background with dusk visual effects
-- 🔢 Live visit counter (tracks total page loads)
-- 📱 Fully responsive design
-- ♿ Keyboard accessible, with `prefers-reduced-motion` support
+- 🚛 Animated highway + lorry background with dusk driving visual effects
+- 📱 Fully responsive design across mobile, tablet, and desktop
+- ♿ Keyboard accessible with focus trapping and `prefers-reduced-motion` support
+- 🛡️ Resilient audio engine with automatic skip for missing tracks and race-free switching
 - 🔗 GitHub link
 
 ---
@@ -42,14 +44,13 @@ The horn-honking, dhaba-stop radio player that lives inside every decorated Indi
 
 | Technology | Purpose |
 |---|---|
-| HTML5 | Structure |
-| CSS3 | Styling & animations |
-| JavaScript | Player logic & interactivity |
-| HTML5 Audio API | Music playback |
+| HTML5 | Accessible semantic structure & modal drawer |
+| CSS3 | Styling, highway animations & responsive layout |
+| JavaScript | Audio engine, horn concurrency & player logic |
+| HTML5 Audio API | Music & horn playback |
 | Web Audio API | Synthesized horn fallback |
-| SVG | Custom highway graphics |
-| Google Fonts | Typography |
-| CountAPI | Page visit counter |
+| SVG | Custom highway graphics & dashboard icons |
+| Google Fonts | Authentic Latin & Devanagari typography |
 | Vercel | Deployment |
 
 ---
@@ -59,10 +60,10 @@ The horn-honking, dhaba-stop radio player that lives inside every decorated Indi
 Horns and music are designed to never overlap:
 
 ```
-🎵 Song Playing → 📯 Horn Clicked → ⏸️ Song Pauses → 🔊 Horn Plays → ▶️ Song Resumes
+🎵 Song Playing → 📯 Horn(s) Triggered → ⏸️ Song Pauses → 🔊 Active Horn(s) Play → ▶️ Song Resumes
 ```
 
-Each horn button uses its own audio file. If the file is unavailable, a synthesized fallback tone (via the Web Audio API) plays instead, using the frequencies configured per horn.
+Each horn button uses its own audio file with concurrency tracking so rapid or overlapping horn presses don't interrupt each other or lose the original music state. If an audio file is unavailable, a synthesized fallback tone (via the Web Audio API) plays instead, using frequencies configured per horn.
 
 ---
 
