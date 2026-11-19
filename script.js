@@ -1928,6 +1928,13 @@
       menuToggleBtn.classList.add('menu-open');
     }
     if(menuCloseBtn) menuCloseBtn.focus();
+    if(typeof requestAnimationFrame === 'function'){
+      requestAnimationFrame(function(){
+        if(navDrawer && navDrawer.classList.contains('active') && menuCloseBtn){
+          menuCloseBtn.focus();
+        }
+      });
+    }
   }
 
   function closeMenu(){
@@ -1945,6 +1952,43 @@
         navDrawer.setAttribute('hidden', '');
       }
     }, 300);
+  }
+
+  function getDrawerFocusableElements(){
+    if(!navDrawer) return [];
+    var selectors = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    var nodes = navDrawer.querySelectorAll(selectors);
+    return Array.prototype.slice.call(nodes);
+  }
+
+  function trapDrawerFocus(e){
+    if(e.key !== 'Tab') return;
+    if(!navDrawer || !navDrawer.classList.contains('active')) return;
+
+    var focusable = getDrawerFocusableElements();
+    if(focusable.length === 0){
+      e.preventDefault();
+      return;
+    }
+
+    var firstEl = focusable[0];
+    var lastEl = focusable[focusable.length - 1];
+
+    if(e.shiftKey){
+      if(document.activeElement === firstEl || !navDrawer.contains(document.activeElement)){
+        lastEl.focus();
+        e.preventDefault();
+      }
+    } else {
+      if(document.activeElement === lastEl || !navDrawer.contains(document.activeElement)){
+        firstEl.focus();
+        e.preventDefault();
+      }
+    }
+  }
+
+  if(navDrawer){
+    navDrawer.addEventListener('keydown', trapDrawerFocus);
   }
 
   if(menuToggleBtn){
@@ -2003,6 +2047,13 @@
         e.preventDefault();
       }
       return;
+    }
+
+    if(e.key === 'Tab' && navDrawer && navDrawer.classList.contains('active')){
+      if(!navDrawer.contains(document.activeElement)){
+        trapDrawerFocus(e);
+        return;
+      }
     }
 
     // Spacebar to toggle Play / Pause
