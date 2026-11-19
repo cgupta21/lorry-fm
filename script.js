@@ -368,6 +368,12 @@
   var playing = false;
   var hasEverPlayed = false;
   var isScrubbing = false;
+  var pendingSeekTime = 0;
+  var currentTrackRequest = 0;
+  var trackLoadingRequestId = 0;
+  var lastHandledErrorRequestId = 0;
+  var skipDirection = 1;
+  var consecutiveErrors = 0;
 
 
   // ===================================================
@@ -474,231 +480,95 @@
 
 
   // ===================================================
-  // HORN STATE
+  // HORN STATE & CONCURRENCY
   // ===================================================
 
-  var currentHornAudio = null;
-
-  var currentHornGain = null;
-
-  var currentHornOscillators = [];
-
-  var currentHornRequest = 0;
-
-  // True only when music was playing when horn was clicked.
-  var musicWasPlayingForHorn = false;
-
-
-  // ===================================================
-  // STOP CURRENT HORN
-  // ===================================================
-
-  function stopCurrentHorn(){
-
-    // Invalidate previous horn requests.
-    currentHornRequest++;
-
-
-    // -------------------------------------------------
-    // Stop MP3 horn
-    // -------------------------------------------------
-
-    if(currentHornAudio){
-
-      try{
-        currentHornAudio.pause();
-      }catch(e){}
-
-      try{
-        currentHornAudio.currentTime = 0;
-      }catch(e){}
-
-      currentHornAudio = null;
-
-    }
-
-
-    // -------------------------------------------------
-    // Stop synthesized horn
-    // -------------------------------------------------
-
-    if(currentHornGain && audioCtx){
-
-      try{
-
-        currentHornGain.gain.cancelScheduledValues(
-          audioCtx.currentTime
-        );
-
-        currentHornGain.gain.setValueAtTime(
-          0.0001,
-          audioCtx.currentTime
-        );
-
-        currentHornGain.disconnect();
-
-      }catch(e){}
-
-      currentHornGain = null;
-
-    }
-
-
-    // -------------------------------------------------
-    // Stop synthesized oscillators
-    // -------------------------------------------------
-
-    currentHornOscillators.forEach(
-      function(osc){
-
-        try{
-          osc.stop();
-        }catch(e){}
-
-        try{
-          osc.disconnect();
-        }catch(e){}
-
-      }
-    );
-
-
-    currentHornOscillators = [];
-
-  }
-
-
-  // ===================================================
-  // RESUME MUSIC AFTER HORN
-  // ===================================================
-
-  function resumeMusicAfterHorn(requestId){
-
-    // Don't resume if another horn has been clicked.
-    if(requestId !== currentHornRequest){
-      return;
-    }
-
-
-    // Only resume if music was playing
-    // before the horn was pressed.
-    if(
-      musicWasPlayingForHorn &&
-      !playing
-    ){
-
-      start();
-
-    }
-
-
-    musicWasPlayingForHorn = false;
-
-  }
+  var activeHornCount = 0;
+  var musicWasPlayingBeforeHorns = false;
 
 
   // ===================================================
   // SYNTHESIZED FALLBACK HORN
   // ===================================================
 
-  function synthHorn(freqs, requestId){
-
-    // A newer horn has already been clicked.
-    if(requestId !== currentHornRequest){
-      return;
-    }
-
+  function synthHorn(freqs, onFinish){
 
     var ctx = getAudioCtx();
 
     if(!ctx){
+      if(onFinish){
+        onFinish();
+      }
       return;
     }
 
+    try{
 
-    var g = ctx.createGain();
+      var g = ctx.createGain();
 
-    currentHornGain = g;
+      g.gain.setValueAtTime(
+        0.0001,
+        ctx.currentTime
+      );
 
+      g.gain.exponentialRampToValueAtTime(
+        0.18,
+        ctx.currentTime + 0.03
+      );
 
-    g.gain.setValueAtTime(
-      0.0001,
-      ctx.currentTime
-    );
+      g.gain.exponentialRampToValueAtTime(
+        0.0001,
+        ctx.currentTime + 0.5
+      );
 
-    g.gain.exponentialRampToValueAtTime(
-      0.18,
-      ctx.currentTime + 0.03
-    );
+      g.connect(ctx.destination);
 
-    g.gain.exponentialRampToValueAtTime(
-      0.0001,
-      ctx.currentTime + 0.5
-    );
+      var oscillators = [];
 
+      freqs.forEach(
+        function(f){
 
-    g.connect(ctx.destination);
-
-
-    var oscillators = [];
-
-
-    freqs.forEach(
-      function(f){
-
-        var o =
-          ctx.createOscillator();
-
-        o.type = 'square';
-
-        o.frequency.value = f;
-
-        o.connect(g);
-
-        o.start();
-
-        o.stop(
-          ctx.currentTime + 0.5
-        );
-
-        oscillators.push(o);
-
-      }
-    );
-
-
-    currentHornOscillators =
-      oscillators;
-
-
-    // Wait for synthesized horn to finish.
-    setTimeout(
-      function(){
-
-        // Don't resume because this horn
-        // is no longer the current horn.
-        if(
-          requestId !==
-          currentHornRequest
-        ){
-
-          return;
+          var o = ctx.createOscillator();
+          o.type = 'square';
+          o.frequency.value = f;
+          o.connect(g);
+          o.start();
+          o.stop(ctx.currentTime + 0.5);
+          oscillators.push(o);
 
         }
+      );
 
+      setTimeout(
+        function(){
 
-        currentHornGain = null;
+          try{
+            g.disconnect();
+          }catch(e){}
 
-        currentHornOscillators = [];
+          oscillators.forEach(
+            function(osc){
+              try{
+                osc.disconnect();
+              }catch(e){}
+            }
+          );
 
+          if(onFinish){
+            onFinish();
+          }
 
-        resumeMusicAfterHorn(
-          requestId
-        );
+        },
+        550
+      );
 
-      },
-      550
-    );
+    }catch(e){
+
+      if(onFinish){
+        onFinish();
+      }
+
+    }
 
   }
 
@@ -709,169 +579,150 @@
 
   function playHorn(index, btn){
 
-    // -------------------------------------------------
-    // Stop any previous horn.
-    // -------------------------------------------------
+    var h = hornSounds[index];
 
-    stopCurrentHorn();
-
-
-    var requestId =
-      currentHornRequest;
-
-
-    var h =
-      hornSounds[index];
-
+    if(!h){
+      return;
+    }
 
     // -------------------------------------------------
-    // Remember music state BEFORE pausing it.
+    // Only capture original music state on the first horn
     // -------------------------------------------------
 
-    musicWasPlayingForHorn =
-      playing;
+    if(activeHornCount === 0){
 
+      musicWasPlayingBeforeHorns = playing;
 
-    // -------------------------------------------------
-    // Pause music only if it was playing.
-    // -------------------------------------------------
+      if(musicWasPlayingBeforeHorns){
 
-    if(musicWasPlayingForHorn){
+        track.pause();
 
-      track.pause();
+        playing = false;
 
-      playing = false;
+        panel.classList.remove(
+          'playing'
+        );
 
+        playbtn.setAttribute(
+          'aria-pressed',
+          'false'
+        );
 
-      panel.classList.remove(
-        'playing'
-      );
+        playbtn.setAttribute(
+          'aria-label',
+          'Play'
+        );
 
+        setDriving(false);
 
-      playbtn.setAttribute(
-        'aria-pressed',
-        'false'
-      );
+        if('mediaSession' in navigator){
+          try {
+            navigator.mediaSession.playbackState = 'paused';
+          } catch(e) {}
+        }
 
-
-      playbtn.setAttribute(
-        'aria-label',
-        'Play'
-      );
-
-
-      setDriving(false);
+      }
 
     }
 
+    activeHornCount++;
 
     // -------------------------------------------------
-    // Create separate horn audio.
+    // Single-fire completion handler for this horn sound
     // -------------------------------------------------
 
-    var audio =
-      new Audio();
+    var finished = false;
 
+    function finishHorn(){
 
-    currentHornAudio =
-      audio;
+      if(finished){
+        return;
+      }
 
+      finished = true;
 
-    audio.src =
-      h.src;
+      activeHornCount = Math.max(0, activeHornCount - 1);
 
-    audio.preload =
-      'auto';
+      // Only resume music after ALL active horns have finished,
+      // and only if music was playing before the first horn.
+      if(activeHornCount === 0){
 
+        if(musicWasPlayingBeforeHorns){
 
-    // Horn volume.
-    audio.volume =
-      0.7;
+          musicWasPlayingBeforeHorns = false;
 
-
-    // -------------------------------------------------
-    // Play real horn MP3.
-    // -------------------------------------------------
-
-    audio.play()
-      .then(
-        function(){
-
-          // Another horn was clicked while
-          // this horn was loading.
-          if(
-            requestId !==
-            currentHornRequest
-          ){
-
-            try{
-              audio.pause();
-              audio.currentTime = 0;
-            }catch(e){}
-
-          }
+          start();
 
         }
-      )
-      .catch(
-        function(){
-
-          // Another horn was clicked.
-          if(
-            requestId !==
-            currentHornRequest
-          ){
-
-            return;
-
-          }
-
-
-          currentHornAudio =
-            null;
-
-
-          // Use synthesized horn.
-          synthHorn(
-            h.freqs,
-            requestId
-          );
-
-        }
-      );
-
-
-    // -------------------------------------------------
-    // Real horn finished
-    // -------------------------------------------------
-
-    audio.addEventListener(
-      'ended',
-      function(){
-
-        // Ignore old horn.
-        if(
-          requestId !==
-          currentHornRequest
-        ){
-
-          return;
-
-        }
-
-
-        currentHornAudio =
-          null;
-
-
-        // Resume the song.
-        resumeMusicAfterHorn(
-          requestId
-        );
 
       }
-    );
 
+    }
+
+    // -------------------------------------------------
+    // Audio Playback with graceful Web Audio fallback
+    // -------------------------------------------------
+
+    var audio = new Audio();
+    audio.src = h.src;
+    audio.preload = 'auto';
+    audio.volume = 0.7;
+
+    var playPromise;
+
+    try{
+      playPromise = audio.play();
+    }catch(e){
+      playPromise = null;
+    }
+
+    if(
+      playPromise &&
+      typeof playPromise.then === 'function'
+    ){
+
+      playPromise
+        .then(
+          function(){
+
+            audio.addEventListener(
+              'ended',
+              finishHorn,
+              { once: true }
+            );
+
+            audio.addEventListener(
+              'error',
+              finishHorn,
+              { once: true }
+            );
+
+          }
+        )
+        .catch(
+          function(){
+
+            // Real horn failed (e.g. 404 missing file or autoplay restriction)
+            synthHorn(h.freqs, finishHorn);
+
+          }
+        );
+
+    }else{
+
+      audio.addEventListener(
+        'ended',
+        finishHorn,
+        { once: true }
+      );
+
+      audio.addEventListener(
+        'error',
+        finishHorn,
+        { once: true }
+      );
+
+    }
 
     // =================================================
     // VISUAL HORN EFFECT
@@ -888,7 +739,6 @@
       panel.classList.add(
         'honking'
       );
-
 
       if(btn){
 
@@ -1112,6 +962,9 @@
     autoplay
   ){
 
+    currentTrackRequest++;
+    var requestId = currentTrackRequest;
+
     currentIndex =
       (
         index +
@@ -1148,71 +1001,81 @@
     }
 
 
-    setTimeout(
-      function(){
+    function applyTrackMetadata(){
 
-        trackTitle.textContent =
-          song.title;
+      trackTitle.textContent =
+        song.title;
 
-        trackArtist.textContent =
-          song.artist;
+      trackArtist.textContent =
+        song.artist;
 
+      coverImg.onerror =
+        function(){
+          coverImg.onerror = null;
+          coverImg.src = fallbackCover;
+        };
 
-        coverImg.onerror =
-          function(){
+      coverImg.src =
+        song.cover ||
+        fallbackCover;
 
-            coverImg.onerror =
-              null;
+      coverImg.classList.remove(
+        'swap'
+      );
 
-            coverImg.src =
-              fallbackCover;
+      trackTitle.classList.remove(
+        'swap'
+      );
 
-          };
+      trackArtist.classList.remove(
+        'swap'
+      );
 
+      if('mediaSession' in navigator){
+        try {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: song.title,
+            artist: song.artist,
+            album: 'Lorry FM — Highway Anthems',
+            artwork: [
+              { src: song.cover || fallbackCover, sizes: '512x512', type: 'image/jpeg' }
+            ]
+          });
+        } catch(e) {}
+      }
 
-        coverImg.src =
-          song.cover ||
-          fallbackCover;
+    }
 
+    if(
+      hasEverPlayed &&
+      !reduceMotion
+    ){
 
-        coverImg.classList.remove(
-          'swap'
-        );
+      setTimeout(
+        function(){
 
-        trackTitle.classList.remove(
-          'swap'
-        );
+          if(requestId !== currentTrackRequest){
+            return;
+          }
 
-        trackArtist.classList.remove(
-          'swap'
-        );
+          applyTrackMetadata();
 
-        if('mediaSession' in navigator){
-          try {
-            navigator.mediaSession.metadata = new MediaMetadata({
-              title: song.title,
-              artist: song.artist,
-              album: 'Lorry FM — Highway Anthems',
-              artwork: [
-                { src: song.cover || fallbackCover, sizes: '512x512', type: 'image/jpeg' }
-              ]
-            });
-          } catch(e) {}
-        }
+        },
+        160
+      );
 
-      },
-      (
-        hasEverPlayed &&
-        !reduceMotion
-      )
-        ? 160
-        : 0
-    );
+    }else{
+
+      applyTrackMetadata();
+
+    }
 
 
     // -------------------------------------------------
     // Change music track
     // -------------------------------------------------
+
+    trackLoadingRequestId = requestId;
 
     track.pause();
 
@@ -1230,14 +1093,77 @@
     );
 
 
+    // If horns are currently active, do not overlap music.
+    // Mark music to resume after all horns finish.
+    if(activeHornCount > 0){
+      if(autoplay){
+        musicWasPlayingBeforeHorns = true;
+      }
+      stop();
+      return;
+    }
+
+
     if(autoplay){
 
-      start();
+      start(requestId);
 
     }else{
 
       stop();
 
+    }
+
+  }
+
+
+  // ===================================================
+  // HANDLE PLAYBACK ERROR / GRACEFUL AUTO-SKIP
+  // ===================================================
+
+  function handleTrackPlaybackError(requestId, err){
+
+    if(requestId !== currentTrackRequest || requestId === lastHandledErrorRequestId){
+      return;
+    }
+
+    lastHandledErrorRequestId = requestId;
+    currentTrackRequest++;
+
+    playing = false;
+
+    panel.classList.remove(
+      'playing'
+    );
+
+    playbtn.setAttribute(
+      'aria-pressed',
+      'false'
+    );
+
+    playbtn.setAttribute(
+      'aria-label',
+      'Play'
+    );
+
+    setDriving(false);
+
+    if('mediaSession' in navigator){
+      try {
+        navigator.mediaSession.playbackState = 'paused';
+      } catch(e) {}
+    }
+
+    consecutiveErrors++;
+
+    // Gracefully skip to the next available track
+    if(consecutiveErrors < playlist.length){
+      loadTrack(
+        currentIndex + skipDirection,
+        true
+      );
+    } else {
+      consecutiveErrors = 0;
     }
 
   }
@@ -1251,11 +1177,23 @@
     'error',
     function(){
 
-      if(playing){
-
-        stop();
-
+      if(playing || track.error){
+        handleTrackPlaybackError(trackLoadingRequestId, track.error);
       }
+
+    }
+  );
+
+
+  // ===================================================
+  // AUDIO PLAYING EVENT
+  // ===================================================
+
+  track.addEventListener(
+    'playing',
+    function(){
+
+      consecutiveErrors = 0;
 
     }
   );
@@ -1269,10 +1207,12 @@
     'loadedmetadata',
     function(){
 
-      updateSeekUI(
-        track.currentTime,
-        track.duration
-      );
+      if(!isScrubbing){
+        updateSeekUI(
+          track.currentTime,
+          track.duration
+        );
+      }
 
     }
   );
@@ -1308,6 +1248,7 @@
     'ended',
     function(){
 
+      skipDirection = 1;
       next();
 
     }
@@ -1318,10 +1259,21 @@
   // START MUSIC
   // ===================================================
 
-  function start(){
+  function start(requestId){
 
-    var p =
-      track.play();
+    if(requestId === undefined){
+      currentTrackRequest++;
+      requestId = currentTrackRequest;
+    }
+
+    var p;
+
+    try{
+      p = track.play();
+    }catch(err){
+      handleTrackPlaybackError(requestId, err);
+      return;
+    }
 
 
     if(
@@ -1333,6 +1285,11 @@
       p.then(
         function(){
 
+          if(requestId !== currentTrackRequest){
+            return;
+          }
+
+          consecutiveErrors = 0;
           playing = true;
 
           hasEverPlayed =
@@ -1360,34 +1317,27 @@
             true
           );
 
+          if('mediaSession' in navigator){
+            try {
+              navigator.mediaSession.playbackState = 'playing';
+            } catch(e) {}
+          }
+
         }
       )
       .catch(
-        function(){
+        function(err){
 
-          playing = false;
+          if(requestId !== currentTrackRequest){
+            return;
+          }
 
+          // AbortError is triggered when a newer load/play interrupts an older play
+          if(err && err.name === 'AbortError'){
+            return;
+          }
 
-          panel.classList.remove(
-            'playing'
-          );
-
-
-          playbtn.setAttribute(
-            'aria-pressed',
-            'false'
-          );
-
-
-          playbtn.setAttribute(
-            'aria-label',
-            'Play'
-          );
-
-
-          setDriving(
-            false
-          );
+          handleTrackPlaybackError(requestId, err);
 
         }
       );
@@ -1405,6 +1355,8 @@
 
     playing =
       false;
+
+    musicWasPlayingBeforeHorns = false;
 
 
     track.pause();
@@ -1431,6 +1383,12 @@
       false
     );
 
+    if('mediaSession' in navigator){
+      try {
+        navigator.mediaSession.playbackState = 'paused';
+      } catch(e) {}
+    }
+
   }
 
 
@@ -1440,6 +1398,8 @@
   // ===================================================
 
   function next(){
+
+    skipDirection = 1;
 
     loadTrack(
       currentIndex + 1,
@@ -1455,6 +1415,8 @@
   // ===================================================
 
   function prev(){
+
+    skipDirection = -1;
 
     loadTrack(
       currentIndex - 1,
@@ -1590,13 +1552,14 @@
   // SEEK BAR
   // ===================================================
 
-  function seekToClientX(
-    clientX
-  ){
+  function getSeekTimeFromClientX(clientX){
 
     var rect =
       seekbar.getBoundingClientRect();
 
+    if(!rect.width){
+      return 0;
+    }
 
     var pct =
       Math.min(
@@ -1611,46 +1574,46 @@
         )
       );
 
-
     var duration =
       track.duration || 0;
 
-
-    var newTime =
-      pct * duration;
-
-
-    updateSeekUI(
-      newTime,
-      duration
-    );
-
-
-    if(duration){
-
-      track.currentTime =
-        newTime;
-
-    }
+    return pct * duration;
 
   }
 
 
-  function beginScrub(
-    clientX
-  ){
+  function beginScrub(clientX){
 
     isScrubbing =
       true;
-
 
     seekbar.classList.add(
       'scrubbing'
     );
 
+    pendingSeekTime =
+      getSeekTimeFromClientX(clientX);
 
-    seekToClientX(
-      clientX
+    updateSeekUI(
+      pendingSeekTime,
+      track.duration || 0
+    );
+
+  }
+
+
+  function updateScrub(clientX){
+
+    if(!isScrubbing){
+      return;
+    }
+
+    pendingSeekTime =
+      getSeekTimeFromClientX(clientX);
+
+    updateSeekUI(
+      pendingSeekTime,
+      track.duration || 0
     );
 
   }
@@ -1658,13 +1621,40 @@
 
   function endScrub(){
 
+    if(!isScrubbing){
+      return;
+    }
+
     isScrubbing =
       false;
-
 
     seekbar.classList.remove(
       'scrubbing'
     );
+
+    var duration =
+      track.duration || 0;
+
+    if(
+      duration &&
+      isFinite(duration) &&
+      isFinite(pendingSeekTime)
+    ){
+
+      try{
+        track.currentTime =
+          Math.min(
+            duration,
+            Math.max(0, pendingSeekTime)
+          );
+      }catch(e){}
+
+      updateSeekUI(
+        track.currentTime,
+        duration
+      );
+
+    }
 
   }
 
@@ -1677,6 +1667,12 @@
     'mousedown',
     function(e){
 
+      if(e.button !== 0){
+        return;
+      }
+
+      e.preventDefault();
+
       beginScrub(
         e.clientX
       );
@@ -1684,7 +1680,7 @@
 
       function onMove(ev){
 
-        seekToClientX(
+        updateScrub(
           ev.clientX
         );
 
@@ -1693,19 +1689,17 @@
 
       function onUp(){
 
-        endScrub();
-
-
         window.removeEventListener(
           'mousemove',
           onMove
         );
 
-
         window.removeEventListener(
           'mouseup',
           onUp
         );
+
+        endScrub();
 
       }
 
@@ -1714,7 +1708,6 @@
         'mousemove',
         onMove
       );
-
 
       window.addEventListener(
         'mouseup',
@@ -1733,41 +1726,78 @@
     'touchstart',
     function(e){
 
+      if(!e.touches || e.touches.length === 0){
+        return;
+      }
+
+      if(e.cancelable){
+        e.preventDefault();
+      }
+
       beginScrub(
         e.touches[0].clientX
       );
 
-    },
-    {
-      passive: true
-    }
-  );
+
+      function onTouchMove(ev){
+
+        if(!ev.touches || ev.touches.length === 0){
+          return;
+        }
+
+        if(ev.cancelable){
+          ev.preventDefault();
+        }
+
+        updateScrub(
+          ev.touches[0].clientX
+        );
+
+      }
 
 
-  seekbar.addEventListener(
-    'touchmove',
-    function(e){
+      function onTouchEnd(){
 
-      seekToClientX(
-        e.touches[0].clientX
+        window.removeEventListener(
+          'touchmove',
+          onTouchMove
+        );
+
+        window.removeEventListener(
+          'touchend',
+          onTouchEnd
+        );
+
+        window.removeEventListener(
+          'touchcancel',
+          onTouchEnd
+        );
+
+        endScrub();
+
+      }
+
+
+      window.addEventListener(
+        'touchmove',
+        onTouchMove,
+        { passive: false }
+      );
+
+      window.addEventListener(
+        'touchend',
+        onTouchEnd
+      );
+
+      window.addEventListener(
+        'touchcancel',
+        onTouchEnd
       );
 
     },
     {
-      passive: true
+      passive: false
     }
-  );
-
-
-  seekbar.addEventListener(
-    'touchend',
-    endScrub
-  );
-
-
-  seekbar.addEventListener(
-    'touchcancel',
-    endScrub
   );
 
 
@@ -1985,6 +2015,25 @@
         stop();
       } else {
         start();
+      }
+      return;
+    }
+
+    // Arrow Left / Right to seek ±5 seconds
+    if((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !e.ctrlKey && !e.metaKey && !e.altKey){
+      if(e.target === seekbar){
+        return;
+      }
+      var duration = track.duration || 0;
+      if(duration){
+        var step = 5;
+        if(e.key === 'ArrowRight'){
+          track.currentTime = Math.min(duration, track.currentTime + step);
+        } else {
+          track.currentTime = Math.max(0, track.currentTime - step);
+        }
+        updateSeekUI(track.currentTime, duration);
+        e.preventDefault();
       }
       return;
     }
